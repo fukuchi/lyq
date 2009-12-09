@@ -1,0 +1,51 @@
+<html>
+<head>
+<script>
+var username = 'kentaro.fukuchi@gmail.com';
+var password = 'gN8Makds';
+var bitly_login = 'kentaro';
+var bitly_apiKey = 'R_3af5ffa1b78539a1d3df3c2a16edfb21';
+
+function shortenURI(uri) {
+	var xhr = new XMLHttpRequest();
+	var param = {"login": bitly_login,
+				 "apiKey": bitly_apiKey,
+				 "version": "2.0.1",
+				 "longUrl": encodeURIComponent(uri)};
+	var pairs = new Array();
+
+	for (var key in param) {
+		pairs.push(key + '=' + param[key]);
+	}
+	xhr.open("GET", "http://api.bit.ly/shorten?" + pairs.join('&'), false);
+	xhr.send(null);
+	if (xhr.status == 200) {
+		var res = JSON.parse(xhr.responseText);
+		var entry;
+		for (var key in res.results) {
+			entry = res.results[key];
+			break;
+		}
+		return entry.shortUrl;
+	}
+	return null;
+}
+
+function tweet(msg, uri) {
+	var length = decodeURI(msg).length;
+	if (uri && length < (140 - 22)) {
+		msg += ' ' + shortenURI(uri);
+	}
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "http://twitter.com/statuses/update.json", false, username, password);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("status=" + msg);
+}
+
+chrome.extension.onRequest.addListener(function(req, sender, resp) {
+	tweet(req.message, req.uri);
+});
+</script>
+</head>
+</html>

@@ -1,0 +1,11 @@
+{
+   "name": "myint",
+   "version": "0.4",
+   "background_page": "background.html",
+   "content_scripts": [ {
+      "js": [ "myint.js" ],
+      "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*" ]
+   } ],
+   "description": "MyInterests is the world smallest micro blogging tool that tweets what you've searched automatically. Use this extension carefully! There is no privacy.",
+   "permissions": [ "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ]
+}
