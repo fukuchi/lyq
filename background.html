@@ -72,8 +72,10 @@ function tweet(msg, uri) {
 
 function updateIcon() {
 	if (Configs.lyq() == "on") {
+		chrome.browserAction.setTitle({title: "Lyqing"});
 		chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
 	} else {
+		chrome.browserAction.setTitle({title: "Not Lyqing"});
 		chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
 	}
 }
