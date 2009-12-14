@@ -25,10 +25,9 @@ Configs = {
 		} catch (e) { }
 		return configs;
 	},
-	lyq: localStorage['mode'],
+	lyq: function() { return localStorage['mode']; },
 	setLyq: function(mode) {
 		localStorage['mode'] = mode;
-		this.lyqmode = mode;
 	}
 }
 
@@ -71,9 +70,34 @@ function tweet(msg, uri) {
 	xhr.send("status=" + msg);
 }
 
+function updateIcon() {
+	if (Configs.lyq() == "on") {
+		chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
+	} else {
+		chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
+	}
+}
+
 chrome.extension.onRequest.addListener(function(req, sender, resp) {
-	tweet(req.message, req.uri);
+	if (req.request == "lyq") {
+		resp(Configs.lyq());
+	} else if(req.request == "debug") {
+		console.debug("DEBUG: " + req.message);
+	} else {
+		tweet(req.message, req.uri);
+	}
 });
+
+chrome.browserAction.onClicked.addListener(function() {
+	if (Configs.lyq() == "on") {
+		Configs.setLyq("off");
+	} else {
+		Configs.setLyq("on");
+	}
+	updateIcon();
+});
+
+updateIcon();
 </script>
 </head>
 </html>

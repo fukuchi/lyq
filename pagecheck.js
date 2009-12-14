@@ -5,18 +5,27 @@ GoogleServices = {
 	"news": "ニュース"
 };
 
-find();
+onLyqOn();
 
-function find() {
+function onLyqOn() {
   var loc = document.location;
-  var host = loc.hostname;
+  chrome.extension.sendRequest({request: "lyq"}, function(resp) {
+	if(resp == "on") {
+		dispatchTweetFunc(loc);
+	}
+  });
+}
 
+function dispatchTweetFunc(loc) {
+  var host = loc.hostname;
   if (host.match(/^.*\.google\.com$/) || host.match(/^.*\.google\.co\..*$/)) {
 	tweetGoogle(loc);
   } else if (host == 'www.youtube.com') {
 	tweetYouTube(loc);
   } else if (host == 'www.nicovideo.jp') {
 	tweetNicovideo(loc);
+  } else if (host == 'localhost') {
+  	tweetTest("localhost/" + loc.pathname);
   }
 }
 
@@ -62,4 +71,8 @@ function tweet(msg, loc) {
 		req.uri = loc.href;
 	}
 	chrome.extension.sendRequest(req);
+}
+
+function tweetTest(msg) {
+	chrome.extension.sendRequest({request: "debug", message: msg});
 }
