@@ -1,3 +1,10 @@
+GoogleServices = {
+	"maps": "地図",
+	"video": "ビデオ",
+	"images": "画像",
+	"news": "ニュース"
+};
+
 find();
 
 function find() {
@@ -18,12 +25,19 @@ function tweetGoogle(loc) {
 	if (loc.hostname.match(/maps\.google/)) {
 		isGoogleMap = true;
 	}
+	var prefix = '';
+	for (var key in GoogleServices) {
+		if (loc.hostname.indexOf(key) == 0) {
+			prefix = GoogleServices[key] + ": ";
+			break;
+		}
+	}
 	var m = loc.search.match(/(\?|&)q=([^?&]*)/);
 	if (m && m[2]) {
 		if (isGoogleMap) {
-			tweet(m[2]);
+			tweet(prefix + m[2]);
 		} else {
-			tweet(m[2], loc);
+			tweet(prefix + m[2], loc);
 		}
 	}
 }

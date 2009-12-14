@@ -1,7 +1,11 @@
 {
    "name": "Lyq",
-   "version": "0.4",
+   "version": "0.5",
    "background_page": "background.html",
+   "browser_action": {
+   	"default_icon": "img/lyq-icon-close.png",
+	"default_title": "Lyq"
+	},
    "content_scripts": [ {
       "js": [ "pagecheck.js" ],
       "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*" ]

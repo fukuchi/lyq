@@ -1,15 +1,42 @@
 <html>
 <head>
+<script type="text/javascript" src="lib/jquery.js"/>
 <script>
-var username = 'kentaro.fukuchi@gmail.com';
-var password = 'gN8Makds';
-var bitly_login = 'kentaro';
-var bitly_apiKey = 'R_3af5ffa1b78539a1d3df3c2a16edfb21';
+Configs = {
+	defaultConfigs: {
+		bitly_login : 'kentaro',
+		bitly_apiKey : 'R_3af5ffa1b78539a1d3df3c2a16edfb21',
+		username : 'kentaro.fukuchi@gmail.com',
+		password : 'gN8Makds'
+	},
+	save: function(configs) {
+		localStorage['configs'] = JSON.stringfy(configs);
+	},
+	load: function(forceDefault) {
+		var configs = $.extend(true, {}, this.defaultConfigs);
+		if (forceDefault) {
+			return configs;
+		}
+		try {
+			var stored = JSON.parse(localStorage['configs']);
+			if (stored) {
+				$.extend(true, configs, stored);
+			}
+		} catch (e) { }
+		return configs;
+	},
+	lyq: localStorage['mode'],
+	setLyq: function(mode) {
+		localStorage['mode'] = mode;
+		this.lyqmode = mode;
+	}
+}
 
 function shortenURI(uri) {
+	var options = Configs.load();
 	var xhr = new XMLHttpRequest();
-	var param = {"login": bitly_login,
-				 "apiKey": bitly_apiKey,
+	var param = {"login": options['bitly_login'],
+				 "apiKey": options['bitly_apiKey'],
 				 "version": "2.0.1",
 				 "longUrl": encodeURIComponent(uri)};
 	var pairs = new Array();
@@ -32,13 +59,14 @@ function shortenURI(uri) {
 }
 
 function tweet(msg, uri) {
+	var options = Configs.load();
 	var length = decodeURI(msg).length;
 	if (uri && length < (140 - 22)) {
 		msg += ' ' + shortenURI(uri);
 	}
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://twitter.com/statuses/update.json", false, username, password);
+	xhr.open("POST", "http://twitter.com/statuses/update.json", false, options['username'], options['password']);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("status=" + msg);
 }
