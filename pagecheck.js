@@ -5,6 +5,13 @@ GoogleServices = {
 	"news": "ニュース"
 };
 
+BingServices = {
+	"maps": "地図",
+	"videos": "ビデオ",
+	"images": "画像",
+	"news": "ニュース"
+};
+
 onLyqOn();
 
 function onLyqOn() {
@@ -20,6 +27,8 @@ function dispatchTweetFunc(loc) {
   var host = loc.hostname;
   if (host.match(/^.*\.google\.com$/) || host.match(/^.*\.google\.co\..*$/)) {
 	tweetGoogle(loc);
+  } else if (host == 'www.bing.com') {
+	tweetBing(loc);
   } else if (host == 'www.youtube.com') {
 	tweetYouTube(loc);
   } else if (host == 'www.nicovideo.jp') {
@@ -48,6 +57,20 @@ function tweetGoogle(loc) {
 		} else {
 			tweet(prefix + m[2], loc);
 		}
+	}
+}
+
+function tweetBing(loc) {
+	var prefix = 'Bing';
+	for (var key in BingServices) {
+		if (loc.pathname.indexOf(key) == 1) {
+			prefix += BingServices[key];
+			break;
+		}
+	}
+	var m = loc.search.match(/(\?|&)q=([^&]*)/);
+	if (m && m[2]) {
+		tweet(prefix + ": " + m[2], loc);
 	}
 }
 
