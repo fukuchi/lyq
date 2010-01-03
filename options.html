@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>Lyq Options</title>
+<link rel="stylesheet" type="text/css" href="css/options.css" />
+<script type="text/javascript" src="lib/jquery.js"></script>
+<script type="text/javascript">
+var newConfigurator = function() {
+	var that = {};
+	var configs = chrome.extension.getBackgroundPage().Configs;
+
+	that.configs = configs;
+	that.load = function(forceDefault) {
+		var options = configs.load(forceDefault);
+		$('input').each(function(){
+			var e = $(this);
+			var name = e.attr('name');
+			if(name) {
+				e.val(options[name]);
+			}
+		});
+	};
+	that.save = function() {
+		var options = configs.load();
+		$('input').each(function(){
+			var e = $(this);
+			var name = e.attr('name');
+			if(options[name]) {
+				options[name] = e.val();
+			}
+		});
+		configs.save(options);
+	};
+	that.forceDefault = function() {
+		that.load(true);
+	};
+
+	return that;
+};
+var configs = newConfigurator();
+$(function(){configs.load()});
+</script>
+</head>
+<body>
+<h1>Lyq Options:</h1>
+<div id="main">
+  <form>
+	<fieldset>
+	  <legend>Twitter account</legend>
+	  <label>Login name</label>
+	  <input type="text" name="username"/><br/>
+	  <label>Password</label>
+	  <input type="password" name="password"/>
+	</fieldset>
+	<fieldset>
+	  <legend>Bit.ly option</legend>
+	  <label>Account</label>
+	  <input type="text" name="bitly_login"/><br/>
+	  <label>API key</label>
+	  <input type="text" name="bitly_apiKey"/>
+	</fieldset>
+    <p>
+	<input type="button" value="Save" onclick="configs.save();" />
+    <input type="button" value="Reset" onclick="configs.load();" />
+	<input type="button" value="Reset to default" onclick="configs.forceDefault();" />
+	</p>
+	<p id="message"></p>
+  </form>
+</div>
+</body>
+</html>

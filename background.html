@@ -6,11 +6,11 @@ Configs = {
 	defaultConfigs: {
 		bitly_login : 'kentaro',
 		bitly_apiKey : 'R_3af5ffa1b78539a1d3df3c2a16edfb21',
-		username : 'kentaro.fukuchi@gmail.com',
-		password : 'gN8Makds'
+		username : 'username',
+		password : ''
 	},
 	save: function(configs) {
-		localStorage['configs'] = JSON.stringfy(configs);
+		localStorage['configs'] = JSON.stringify(configs);
 	},
 	load: function(forceDefault) {
 		var configs = $.extend(true, {}, this.defaultConfigs);
@@ -45,7 +45,7 @@ function shortenURI(uri) {
 	}
 	xhr.open("GET", "http://api.bit.ly/shorten?" + pairs.join('&'), false);
 	xhr.send(null);
-	if (xhr.status == 200) {
+	if (xhr.status === 200) {
 		var res = JSON.parse(xhr.responseText);
 		var entry;
 		for (var key in res.results) {
@@ -71,7 +71,7 @@ function tweet(msg, uri) {
 }
 
 function updateIcon() {
-	if (Configs.lyq() == "on") {
+	if (Configs.lyq() === "on") {
 		chrome.browserAction.setTitle({title: "Lyqing"});
 		chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
 	} else {
@@ -81,9 +81,9 @@ function updateIcon() {
 }
 
 chrome.extension.onRequest.addListener(function(req, sender, resp) {
-	if (req.request == "lyq") {
+	if (req.request === "lyq") {
 		resp(Configs.lyq());
-	} else if(req.request == "debug") {
+	} else if(req.request === "debug") {
 		console.debug("DEBUG: " + req.message);
 	} else {
 		tweet(req.message, req.uri);
@@ -91,7 +91,7 @@ chrome.extension.onRequest.addListener(function(req, sender, resp) {
 });
 
 chrome.browserAction.onClicked.addListener(function() {
-	if (Configs.lyq() == "on") {
+	if (Configs.lyq() === "on") {
 		Configs.setLyq("off");
 	} else {
 		Configs.setLyq("on");

@@ -1,0 +1,26 @@
+div#main {
+	width: 50em;
+	margin: 2em auto 2em auto;
+	padding: 5pt;
+	border-width: 3px;
+	border-color: #dddddd;
+	border-style: solid;
+}
+
+fieldset {
+	border-color: #dddddd;
+	margin-bottom: 2em;
+}
+
+label {
+	float: left;
+	width: 8em
+}
+
+input[type="text"], input[type="password"] {
+	width: 20em;
+}
+
+p#message {
+	height: 1em;
+}
