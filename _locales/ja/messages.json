@@ -1,0 +1,10 @@
+{
+	"Map": { "message": "地図" },
+	"Image": { "message": "画像" },
+	"Video": { "message": "ビデオ" },
+	"News": { "message": "ニュース" },
+	"Google": { "message": "Google" },
+	"Bing": { "message": "Bing" },
+	"YouTube": { "message": "YouTube" },
+	"NicoNico": { "message": "ニコニコ" }
+}

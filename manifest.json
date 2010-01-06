@@ -1,6 +1,7 @@
 {
    "name": "Lyq",
    "version": "0.7",
+   "default_locale": "en",
    "background_page": "background.html",
    "options_page": "options.html",
    "browser_action": {
@@ -16,5 +17,6 @@
    "icons": {
    		"32": "img/lyq-icon-32x32.png",
    		"48": "img/lyq-icon-48x48.png"
-	}
+	},
+   "update_url": "http://megaui.net/fukuchi/work/lyq/update.xml"
 }

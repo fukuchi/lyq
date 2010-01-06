@@ -6,29 +6,29 @@
 <script type="text/javascript">
 var newConfigurator = function() {
 	var that = {};
-	var configs = chrome.extension.getBackgroundPage().Configs;
+	var background = chrome.extension.getBackgroundPage();
 
-	that.configs = configs;
+	that.configs = background.Configs;
 	that.load = function(forceDefault) {
-		var options = configs.load(forceDefault);
-		$('input').each(function(){
+		var configs = background.Configs.load(forceDefault);
+		$("input").each(function(){
 			var e = $(this);
-			var name = e.attr('name');
+			var name = e.attr("name");
 			if(name) {
-				e.val(options[name]);
+				e.val(configs[name]);
 			}
 		});
 	};
 	that.save = function() {
-		var options = configs.load();
-		$('input').each(function(){
+		var configs = background.Configs.load();
+		$("input").each(function(){
 			var e = $(this);
-			var name = e.attr('name');
-			if(options[name]) {
-				options[name] = e.val();
+			var name = e.attr("name");
+			if(configs[name]) {
+				configs[name] = e.val();
 			}
 		});
-		configs.save(options);
+		background.Configs.save(configs);
 	};
 	that.forceDefault = function() {
 		that.load(true);

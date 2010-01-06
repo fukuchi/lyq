@@ -1,0 +1,36 @@
+Lyq: Leak Your Query - version 0.7
+
+GENERAL INFORMATION
+===================
+
+SUPPORTED SERACH SERVICES
+=========================
+
+* Google web, maps, images, videos, news
+* Bing! web, maps, images,videos, news
+* YouTube
+* Nico Nico Douga
+
+INSTALL
+=======
+Currently Lyq does not provide a compound package, that means it is not able
+to install Lyq from web. Instead, follow these steps:
+
+1. Launch Google Chrome.
+2. Open "Extensions" page from Customize menu or type "chrome://extensions/"
+   in the location bar.
+3. Click "Load unpackaged extension..." button.
+4. When a file dialog is opened, choose a directory contains Lyq's files.
+
+This installing process is needed again when you restart Chrome. Sorry for your
+inconvenience.
+
+TODO
+====
+* Other search services.
+* Other URI shortener services.
+* OAuth authentication.
+
+LICENSE
+=======
+Lyq is released under BSD-style license.

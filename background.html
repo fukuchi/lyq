@@ -2,15 +2,15 @@
 <head>
 <script type="text/javascript" src="lib/jquery.js"/>
 <script>
-Configs = {
+var Configs = {
 	defaultConfigs: {
-		bitly_login : 'kentaro',
-		bitly_apiKey : 'R_3af5ffa1b78539a1d3df3c2a16edfb21',
-		username : 'username',
-		password : ''
+		"bitly_login" : "kentaro",
+		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
+		"username" : "username",
+		"password" : "",
 	},
 	save: function(configs) {
-		localStorage['configs'] = JSON.stringify(configs);
+		localStorage["configs"] = JSON.stringify(configs);
 	},
 	load: function(forceDefault) {
 		var configs = $.extend(true, {}, this.defaultConfigs);
@@ -18,32 +18,32 @@ Configs = {
 			return configs;
 		}
 		try {
-			var stored = JSON.parse(localStorage['configs']);
+			var stored = JSON.parse(localStorage["configs"]);
 			if (stored) {
 				$.extend(true, configs, stored);
 			}
 		} catch (e) { }
 		return configs;
 	},
-	lyq: function() { return localStorage['mode']; },
+	lyq: function() { return localStorage["mode"]; },
 	setLyq: function(mode) {
-		localStorage['mode'] = mode;
+		localStorage["mode"] = mode;
 	}
-}
+};
 
 function shortenURI(uri) {
-	var options = Configs.load();
+	var configs = Configs.load();
 	var xhr = new XMLHttpRequest();
-	var param = {"login": options['bitly_login'],
-				 "apiKey": options['bitly_apiKey'],
+	var param = {"login": configs["bitly_login"],
+				 "apiKey": configs["bitly_apiKey"],
 				 "version": "2.0.1",
 				 "longUrl": encodeURIComponent(uri)};
 	var pairs = new Array();
 
 	for (var key in param) {
-		pairs.push(key + '=' + param[key]);
+		pairs.push(key + "=" + param[key]);
 	}
-	xhr.open("GET", "http://api.bit.ly/shorten?" + pairs.join('&'), false);
+	xhr.open("GET", "http://api.bit.ly/shorten?" + pairs.join("&"), false);
 	xhr.send(null);
 	if (xhr.status === 200) {
 		var res = JSON.parse(xhr.responseText);
@@ -58,14 +58,14 @@ function shortenURI(uri) {
 }
 
 function tweet(msg, uri) {
-	var options = Configs.load();
+	var configs = Configs.load();
 	var length = decodeURI(msg).length;
 	if (uri && length < (140 - 22)) {
-		msg += ' ' + shortenURI(uri);
+		msg += " " + shortenURI(uri);
 	}
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://twitter.com/statuses/update.json", false, options['username'], options['password']);
+	xhr.open("POST", "http://twitter.com/statuses/update.json", false, configs["username"], configs["password"]);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("status=" + msg);
 }
@@ -80,26 +80,36 @@ function updateIcon() {
 	}
 }
 
-chrome.extension.onRequest.addListener(function(req, sender, resp) {
-	if (req.request === "lyq") {
-		resp(Configs.lyq());
-	} else if(req.request === "debug") {
-		console.debug("DEBUG: " + req.message);
-	} else {
-		tweet(req.message, req.uri);
-	}
-});
-
-chrome.browserAction.onClicked.addListener(function() {
-	if (Configs.lyq() === "on") {
-		Configs.setLyq("off");
-	} else {
-		Configs.setLyq("on");
-	}
+function initLyq() {
+	var configs = Configs.load();
 	updateIcon();
-});
 
-updateIcon();
+	chrome.extension.onRequest.addListener(function(req, sender, resp) {
+		switch(req.request) {
+			case "lyq":
+				resp(Configs.lyq());
+				break;
+			case "debug":
+				console.debug("DEBUG: " + req.message);
+				break;
+			default:
+				tweet(req.message, req.uri);
+				break;
+		}
+	});
+
+	chrome.browserAction.onClicked.addListener(function() {
+		if (Configs.lyq() === "on") {
+			Configs.setLyq("off");
+		} else {
+			Configs.setLyq("on");
+		}
+		updateIcon();
+	});
+}
+
+initLyq();
+
 </script>
 </head>
 </html>
