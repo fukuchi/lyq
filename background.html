@@ -1,6 +1,7 @@
 <html>
 <head>
 <script type="text/javascript" src="lib/jquery.js"/>
+<script type="text/javascript" src="dispatch.js"/>
 <script>
 var Configs = {
 	defaultConfigs: {
@@ -57,9 +58,10 @@ function shortenURI(uri) {
 	return null;
 }
 
-function tweet(msg, uri) {
+function tweet(msg, loc) {
 	var configs = Configs.load();
 	var length = decodeURI(msg).length;
+	var uri = loc.href;
 	if (uri && length < (140 - 22)) {
 		msg += " " + shortenURI(uri);
 	}
@@ -82,6 +84,7 @@ function updateIcon() {
 
 function initLyq() {
 	var configs = Configs.load();
+	var disp = dispatcher();
 	updateIcon();
 
 	chrome.extension.onRequest.addListener(function(req, sender, resp) {
@@ -89,11 +92,8 @@ function initLyq() {
 			case "lyq":
 				resp(Configs.lyq());
 				break;
-			case "debug":
-				console.debug("DEBUG: " + req.message);
-				break;
 			default:
-				tweet(req.message, req.uri);
+				disp.tweet(req);
 				break;
 		}
 	});
