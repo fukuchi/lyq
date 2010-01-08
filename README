@@ -1,15 +1,22 @@
-Lyq: Leak Your Query - version 0.7
+Lyq: Leak Your Query - version 0.8
 
 GENERAL INFORMATION
 ===================
+Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets
+(leaks) what you've searched automatically. Do NOT use this extension unless
+you know what you are doing with it. You will face serious security risks.
 
-SUPPORTED SERACH SERVICES
-=========================
+Lyq extracts a search query from the following serch services and tweets it
+with a shortened link to that page. You can disable tweeting by the toggle
+button displayed besides the location bar.
 
+Supported Search Services
+-------------------------
 * Google web, maps, images, videos, news
 * Bing web, maps, images,videos, news
 * YouTube
 * Nico Nico Douga
+
 
 INSTALL
 =======
@@ -25,12 +32,18 @@ to install Lyq from web. Instead, follow these steps:
 This installing process is needed again when you restart Chrome. Sorry for your
 inconvenience.
 
+After the first installing of Lyq, open the configuration page by clicking
+"Option" button from the Extensions page, and set your twitter account.
+(Currently Lyq uses Basic authentication, which is not recommended by twitter.)
+
+
 TODO
 ====
 * Other search services.
 * Other URI shortener services.
 * OAuth authentication.
 
+
 LICENSE
 =======
-Lyq is released under BSD-style license.
+Lyq is released under the BSD-style license. Check the LICENSE file.

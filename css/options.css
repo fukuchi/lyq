@@ -1,5 +1,5 @@
 div#main {
-	width: 50em;
+	width: 40em;
 	margin: 2em auto 2em auto;
 	padding: 5pt;
 	border-width: 3px;
@@ -23,4 +23,11 @@ input[type="text"], input[type="password"] {
 
 p#message {
 	height: 1em;
+}
+
+h1 {
+	margin-left: 2em;
+}
+h2 {
+	font-size: 100%;
 }

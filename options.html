@@ -18,17 +18,21 @@ var newConfigurator = function() {
 				e.val(configs[name]);
 			}
 		});
+		if (forceDefault) {
+			$("#message").stop().text("Options are reset to default.").show().css('opacity', '1.0').fadeOut(5000);
+		}
 	};
 	that.save = function() {
 		var configs = background.Configs.load();
 		$("input").each(function(){
 			var e = $(this);
 			var name = e.attr("name");
-			if(configs[name]) {
+			if(configs[name] !== undefined) {
 				configs[name] = e.val();
 			}
 		});
 		background.Configs.save(configs);
+		$("#message").stop().text("Options saved.").show().css('opacity', '1.0').fadeOut(5000);
 	};
 	that.forceDefault = function() {
 		that.load(true);
@@ -51,6 +55,7 @@ $(function(){configs.load()});
 	  <label>Password</label>
 	  <input type="password" name="password"/>
 	</fieldset>
+	<h2>Advanced settings</h2>
 	<fieldset>
 	  <legend>Bit.ly option</legend>
 	  <label>Account</label>
@@ -62,8 +67,8 @@ $(function(){configs.load()});
 	<input type="button" value="Save" onclick="configs.save();" />
     <input type="button" value="Reset" onclick="configs.load();" />
 	<input type="button" value="Reset to default" onclick="configs.forceDefault();" />
+	<span id="message"></span>
 	</p>
-	<p id="message"></p>
   </form>
 </div>
 </body>
