@@ -6,7 +6,7 @@ Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets
 (leaks) what you've searched automatically. Do NOT use this extension unless
 you know what you are doing with it. You will face serious security risks.
 
-Lyq extracts a search query from the following serch services and tweets it
+Lyq extracts a search query from the following search services and tweets it
 with a shortened link to that page. You can disable tweeting by the toggle
 button displayed besides the location bar.
 
@@ -16,6 +16,12 @@ Supported Search Services
 * Bing web, maps, images,videos, news
 * YouTube
 * Nico Nico Douga
+
+WARNINGS
+========
+Lyq may leak any hidden URLs. Some web services achieve privacy protection by
+hiding URLs and it is expected that you do not disclose them (e.g. Google
+Calendar and Google Maps).
 
 
 INSTALL
