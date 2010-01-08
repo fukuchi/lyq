@@ -43,9 +43,12 @@ function dispatcher() {
 
 	function tweetBing(loc) {
 		var prefix = _gt("Bing");
+		if (loc.hostname.match(/maps\.google/)) {
+			return; //currently Bing Map is not supported.
+		}
 		for (var key in BingServices) {
 			if (loc.pathname.indexOf(key) === 1) {
-				prefix += _gt(BingServices[key]);
+				prefix += " " + _gt(BingServices[key]);
 				break;
 			}
 		}
