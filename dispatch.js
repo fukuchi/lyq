@@ -17,12 +17,18 @@ function dispatcher() {
 		return chrome.i18n.getMessage(msg);
 	}
 
-	function tweetGoogle(loc) {
-		var isGoogleMap = false;
-		if (loc.hostname.match(/maps\.google/)) {
-			isGoogleMap = true;
+	function tweetGoogleMap(loc) {
+		if (loc.special.query) {
+			tweet(_gt(GoogleServices["maps"]) + loc.special.query, loc.special.href);
 		}
+	}
+
+	function tweetGoogle(loc) {
 		var prefix = "";
+		if (loc.hostname.match(/maps\.google/)) {
+			return; // currently Google Maps is not supported.
+			//return tweetGoogleMap(loc);
+		}
 		for (var key in GoogleServices) {
 			if (loc.hostname.indexOf(key) === 0) {
 				prefix = _gt(GoogleServices[key]) + ": ";
@@ -31,11 +37,7 @@ function dispatcher() {
 		}
 		var m = loc.search.match(/(\?|&)q=([^?&]*)/);
 		if (m && m[2]) {
-			if (isGoogleMap) {
-				tweet(prefix + m[2]);
-			} else {
-				tweet(prefix + m[2], loc);
-			}
+			tweet(prefix + m[2], loc.href);
 		}
 	}
 
@@ -49,21 +51,21 @@ function dispatcher() {
 		}
 		var m = loc.search.match(/(\?|&)q=([^&]*)/);
 		if (m && m[2]) {
-			tweet(prefix + ": " + m[2], loc);
+			tweet(prefix + ": " + m[2], loc.href);
 		}
 	}
 
 	function tweetYouTube(loc) {
 		var m = loc.search.match(/(\?|&)search_query=([^&]*)/);
 		if (m && m[2]) {
-			tweet(_gt("YouTube") + ": " + m[2], loc);
+			tweet(_gt("YouTube") + ": " + m[2], loc.href);
 		}
 	}
 
 	function tweetNicovideo(loc) {
 		var m = loc.pathname.match(/^\/([^/]*)\/([^/]*)/);
 		if (m && m[1].match(/(search|tag)/) && m[2]) {
-			tweet(_gt("NicoNico") + ": " + m[2], loc);
+			tweet(_gt("NicoNico") + ": " + m[2], loc.href);
 		}
 	}
 

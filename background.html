@@ -59,10 +59,9 @@ function shortenURI(uri) {
 	return null;
 }
 
-function tweet(msg, loc) {
+function tweet(msg, uri) {
 	var configs = Configs.load();
 	var length = decodeURI(msg).length;
-	var uri = loc.href;
 	if (configs["shortenurl"]) {
 		if (uri && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
