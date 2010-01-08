@@ -14,8 +14,15 @@ var newConfigurator = function() {
 		$("input").each(function(){
 			var e = $(this);
 			var name = e.attr("name");
-			if(name) {
-				e.val(configs[name]);
+			if(name !== "" && configs[name]) {
+				switch(e.attr("type")) {
+					case "checkbox":
+						e.attr("checked", (configs[name] === "on")?"true":"false");
+						break;
+					default:
+						e.val(configs[name]);
+						break;
+				}
 			}
 		});
 		if (forceDefault) {
@@ -27,8 +34,15 @@ var newConfigurator = function() {
 		$("input").each(function(){
 			var e = $(this);
 			var name = e.attr("name");
-			if(configs[name] !== undefined) {
-				configs[name] = e.val();
+			if(name !== "" && configs[name] !== undefined) {
+				switch(e.attr("type")) {
+					case "checkbox":
+						configs[name] = e.attr("checked");
+						break;
+					default:
+						configs[name] = e.val();
+						break;
+				}
 			}
 		});
 		background.Configs.save(configs);
@@ -54,6 +68,11 @@ $(function(){configs.load()});
 	  <input type="text" name="username"/><br/>
 	  <label>Password</label>
 	  <input type="password" name="password"/>
+	</fieldset>
+	<fieldset>
+	  <legend>URL sharing</legend>
+	  <label>Tweets with URL</label>
+	  <input type="checkbox" name="shortenurl"/>
 	</fieldset>
 	<h2>Advanced settings</h2>
 	<fieldset>

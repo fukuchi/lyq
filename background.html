@@ -5,6 +5,7 @@
 <script>
 var Configs = {
 	defaultConfigs: {
+		"shortenurl": "on",
 		"bitly_login" : "kentaro",
 		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
 		"username" : "username",
@@ -62,8 +63,11 @@ function tweet(msg, loc) {
 	var configs = Configs.load();
 	var length = decodeURI(msg).length;
 	var uri = loc.href;
-	if (uri && length < (140 - 22)) {
-		msg += " " + shortenURI(uri);
+	console.log("hoge:" + configs["shortenurl"]);
+	if (configs["shortenurl"]) {
+		if (uri && length < (140 - 22)) {
+			msg += " " + shortenURI(uri);
+		}
 	}
 
 	var xhr = new XMLHttpRequest();
