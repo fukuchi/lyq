@@ -1,30 +1,50 @@
-onLyqOn();
+lyqInject();
 
-function onLyqOn() {
+function lyqInject() {
   var loc = document.location;
-  chrome.extension.sendRequest({"request": "lyq"}, function(resp) {
-	if(resp === "on") {
-		var req = {
+  var onLyqOn = function (func) {
+	chrome.extension.sendRequest({"request": "lyq"}, function(resp) {
+		if(resp === "on") func();
+	});
+  };
+
+  if (loc.hostname.match(/maps\.google/)) {
+	googleMap();
+  } else {
+  	onLyqOn(function() {
+  		var req = {
 			"request": "tweet",
 			"href": loc.href,
 			"hostname": loc.hostname,
 			"search": loc.search,
 			"pathname": loc.pathname
 		};
-		if (loc.hostname.match(/maps\.google/)) {
-			googleMap();
-			//req["special"] = googleMap();
-		}
 		chrome.extension.sendRequest(req);
-	}
-  });
+  	});
+  }
 
-  function googleMap() {
-  	var query = document.getElementById("q_d");
-	var href = document.getElementById("link").getAttribute("href");
-	query.onchange = function() {
-		console.log("Form changed: " + query.value);
+  function googleMap(req) {
+	var q_form = document.getElementById("q_form");
+	var tweet = function(query, href) {
+		onLyqOn(function() {
+			var req = {
+				"request": "tweet",
+				"href": loc.href,
+				"hostname": loc.hostname,
+				"search": loc.search,
+				"pathname": loc.pathname,
+				"special" : {"query": query, "href": href}
+			};
+			chrome.extension.sendRequest(req);
+		});
 	}
-  	return {"query": query.value, "href": href}
+	q_form.addEventListener("submit", function() {
+		var query, href;
+		query = document.getElementById("q_d").value;
+		setTimeout(function() { // bad, dirty hack
+			href = document.getElementById("link").href;
+			tweet(query, href);
+		}, 1000);
+	}, false);
   }
 }

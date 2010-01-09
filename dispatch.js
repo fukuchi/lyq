@@ -19,15 +19,14 @@ function dispatcher() {
 
 	function tweetGoogleMap(loc) {
 		if (loc.special.query) {
-			tweet(_gt(GoogleServices["maps"]) + loc.special.query, loc.special.href);
+			tweet(_gt(GoogleServices["maps"]) + ": " + loc.special.query, loc.special.href);
 		}
 	}
 
 	function tweetGoogle(loc) {
 		var prefix = "";
 		if (loc.hostname.match(/maps\.google/)) {
-			return; // currently Google Maps is not supported.
-			//return tweetGoogleMap(loc);
+			return tweetGoogleMap(loc);
 		}
 		for (var key in GoogleServices) {
 			if (loc.hostname.indexOf(key) === 0) {

@@ -63,7 +63,7 @@ function tweet(msg, uri) {
 	var configs = Configs.load();
 	var length = decodeURI(msg).length;
 	if (configs["shortenurl"]) {
-		if (uri && length < (140 - 22)) {
+		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
 		}
 	}
