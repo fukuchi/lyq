@@ -40,6 +40,9 @@ var Configs = {
 	lyq: function() { return localStorage["mode"]; },
 	setLyq: function(mode) {
 		localStorage["mode"] = mode;
+		if(mode === "on") {
+			TwitterOAuth.prepareForTweet();
+		}
 	}
 };
 
@@ -77,11 +80,33 @@ function tweet(msg, uri) {
 			msg += " " + shortenURI(uri);
 		}
 	}
+	var params = {"status": msg};
+	var sparams = TwitterOAuth.prepareSignedParams("http://twitter.com/statuses/update.json", params, "POST");
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://twitter.com/statuses/update.json", false, configs["username"], configs["password"]);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send("status=" + msg);
+	$.ajax({
+		"type": "POST",
+		"url": "http://twitter.com/statuses/update.json",
+		"data": sparams,
+		"dataType": "json",
+		"timeout": 6000,
+	});
+}
+
+function updateIcon() {
+	if (Configs.lyq() === "on") {
+		chrome.browserAction.setTitle({title: "Lyqing"});
+		chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
+	} else {
+		chrome.browserAction.setTitle({title: "Not Lyqing"});
+		chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
+	}
+}
+
+function signout() {
+	localStorage.removeItem("oauth_token_data");
+	TwitterOAuth.reset();
+	Configs.setLyq("off");
+	updateIcon();
 }
 
 function initLyq() {
@@ -90,11 +115,12 @@ function initLyq() {
 	updateIcon();
 
 	chrome.extension.onRequest.addListener(function(req, sender, resp) {
-		switch(req.request) {
+		switch(req["request"]) {
 			case "lyq":
 				resp(Configs.lyq());
 				break;
-			case "auth":
+			case "twitter_pin":
+				TwitterOAuth.getAccessToken(req["pin"], function(result) {resp(result)});
 				break;
 			default:
 				disp.tweet(req);
@@ -110,21 +136,10 @@ function initLyq() {
 		}
 		updateIcon();
 	});
-
-	// Internal functions
-
-	function updateIcon() {
-		if (Configs.lyq() === "on") {
-			chrome.browserAction.setTitle({title: "Lyqing"});
-			chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
-		} else {
-			chrome.browserAction.setTitle({title: "Not Lyqing"});
-			chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
-		}
-	}
 }
 
 initLyq();
+TwitterOAuth.prepareForTweet();
 //]]>
 </script>
 </head>

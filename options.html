@@ -55,6 +55,17 @@ var newConfigurator = function() {
 
 	return that;
 };
+
+function signin() {
+	TwitterOAuth.prepareForTweet();
+}
+
+function signout() {
+	var background = chrome.extension.getBackgroundPage();
+
+	background.signout();
+}
+
 var configs = newConfigurator();
 $(function(){configs.load()});
 //]]>
@@ -64,8 +75,11 @@ $(function(){configs.load()});
 <div id="header">
 <h1>Lyq Options:</h1>
 </div>
-<div id="auth">
-  <p>Lyq is not allowed to access your Twitter account. <a href="auth.html">Start authentication</a>.</p>
+<div id="signin">
+  <p>Lyq is not allowed to access your Twitter account. <a href="javascript:signin()">Sign in</a>.</p>
+</div>
+<div id="signout">
+  <p><a href="javascript:signout()">Sign out</a>.</p>
 </div>
 <div id="main">
   <form>
