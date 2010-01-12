@@ -11,7 +11,7 @@
    "content_scripts": [ {
       "js": [ "pagecheck.js" ],
       "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "http://localhost/*" ]
-   } ],
+   }],
    "description": "Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets (leaks) what you've searched automatically. Do NOT use this extension unless you know what you are doing with it. You will face serious security risks.",
    "permissions": [ "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ],
    "icons": {

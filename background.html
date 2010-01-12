@@ -5,13 +5,19 @@
 <script>
 var Configs = {
 	defaultConfigs: {
-		"shortenurl": "on",
+		"tweeturi": "on",
+		"shortenuri": "bitly",
 		"bitly_login" : "kentaro",
 		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
 		"username" : "username",
 		"password" : "",
 	},
+	obsoleteConfigs: ["shortenurl"],
 	save: function(configs) {
+		var i, len = this.obsoleteConfigs.length;
+		for (i=0; i<len; i++) {
+			delete(configs[this.obsoleteConfigs[i]]);
+		}
 		localStorage["configs"] = JSON.stringify(configs);
 	},
 	load: function(forceDefault) {
@@ -62,7 +68,7 @@ function shortenURI(uri) {
 function tweet(msg, uri) {
 	var configs = Configs.load();
 	var length = decodeURI(msg).length;
-	if (configs["shortenurl"]) {
+	if (configs["tweeturi"]) {
 		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
 		}
@@ -74,17 +80,7 @@ function tweet(msg, uri) {
 	xhr.send("status=" + msg);
 }
 
-function updateIcon() {
-	if (Configs.lyq() === "on") {
-		chrome.browserAction.setTitle({title: "Lyqing"});
-		chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
-	} else {
-		chrome.browserAction.setTitle({title: "Not Lyqing"});
-		chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
-	}
-}
-
-function initLyq() {
+(function() {
 	var configs = Configs.load();
 	var disp = dispatcher();
 	updateIcon();
@@ -108,9 +104,19 @@ function initLyq() {
 		}
 		updateIcon();
 	});
-}
 
-initLyq();
+	// Internal functions
+
+	function updateIcon() {
+		if (Configs.lyq() === "on") {
+			chrome.browserAction.setTitle({title: "Lyqing"});
+			chrome.browserAction.setIcon({path: "img/lyq-icon-open.png"});
+		} else {
+			chrome.browserAction.setTitle({title: "Not Lyqing"});
+			chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
+		}
+	}
+}());
 
 </script>
 </head>

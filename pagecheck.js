@@ -10,6 +10,8 @@ function lyqInject() {
 
   if (loc.hostname.match(/maps\.google/)) {
 	googleMap();
+  } else if (loc.href.match(/www.bing.com\/maps\//)) {
+    bingMap();
   } else {
   	onLyqOn(function() {
   		var req = {
@@ -23,8 +25,8 @@ function lyqInject() {
   	});
   }
 
-  function googleMap(req) {
-	var q_form = document.getElementById("q_form");
+  function googleMap() {
+	var q_form = document.forms["q_form"];
 	var tweet = function(query, href) {
 		onLyqOn(function() {
 			var req = {
@@ -33,7 +35,7 @@ function lyqInject() {
 				"hostname": loc.hostname,
 				"search": loc.search,
 				"pathname": loc.pathname,
-				"special" : {"query": query, "href": href}
+				"special" : {"service": "maps", "query": query, "href": href}
 			};
 			chrome.extension.sendRequest(req);
 		});
@@ -45,6 +47,27 @@ function lyqInject() {
 			href = document.getElementById("link").href;
 			tweet(query, href);
 		}, 1000);
+	}, false);
+  }
+
+  function bingMap() {
+	var veform = document.forms["veform"];
+	var tweet = function(query, href) {
+	}
+	veform.addEventListener("submit", function() {
+		var query;
+		query = document.getElementById("sb_form_q").value;
+		onLyqOn(function() {
+			var req = {
+				"request": "tweet",
+				"href": loc.href,
+				"hostname": loc.hostname,
+				"search": loc.search,
+				"pathname": loc.pathname,
+				"special" : {"service": "maps", "query": query}
+			};
+			chrome.extension.sendRequest(req);
+		});
 	}, false);
   }
 }

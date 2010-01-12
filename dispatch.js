@@ -25,7 +25,7 @@ function dispatcher() {
 
 	function tweetGoogle(loc) {
 		var prefix = "";
-		if (loc.hostname.match(/maps\.google/)) {
+		if (loc.special && loc.special["service"] === "maps") {
 			return tweetGoogleMap(loc);
 		}
 		for (var key in GoogleServices) {
@@ -40,10 +40,16 @@ function dispatcher() {
 		}
 	}
 
+	function tweetBingMap(loc) {
+		if (loc.special.query) {
+			tweet(_gt("Bing") + " " + _gt(BingServices["maps"]) + ": " + loc.special.query);
+		}
+	}
+
 	function tweetBing(loc) {
 		var prefix = _gt("Bing");
-		if (loc.hostname.match(/maps\.google/)) {
-			return; //currently Bing Map is not supported.
+		if (loc.special && loc.special["service"] === "maps") {
+			return tweetBingMap(loc);
 		}
 		for (var key in BingServices) {
 			if (loc.pathname.indexOf(key) === 1) {
