@@ -1,6 +1,5 @@
 (function () {
   var loc = document.location;
-  console.log(loc.search);
   var onLyqOn = function (func) {
 	chrome.extension.sendRequest({"request": "lyq"}, function(resp) {
 		if(resp === "on") func();

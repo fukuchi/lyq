@@ -34,7 +34,6 @@ function dispatcher() {
 				break;
 			}
 		}
-		console.log(loc.search);
 		var m = loc.search.match(/(\?|&)q=([^?&]*)/);
 		if (m && m[2]) {
 			tweet(prefix + m[2], loc.href);
