@@ -1,8 +1,12 @@
 <html>
 <head>
 <script type="text/javascript" src="lib/jquery.js"/>
+<script type="text/javascript" src="lib/oauth.js"/>
+<script type="text/javascript" src="lib/sha1.js"/>
 <script type="text/javascript" src="dispatch.js"/>
+<script type="text/javascript" src="twitteroauth.js"/>
 <script>
+//<![CDATA[
 var Configs = {
 	defaultConfigs: {
 		"tweeturi": "on",
@@ -80,7 +84,7 @@ function tweet(msg, uri) {
 	xhr.send("status=" + msg);
 }
 
-(function() {
+function initLyq() {
 	var configs = Configs.load();
 	var disp = dispatcher();
 	updateIcon();
@@ -89,6 +93,8 @@ function tweet(msg, uri) {
 		switch(req.request) {
 			case "lyq":
 				resp(Configs.lyq());
+				break;
+			case "auth":
 				break;
 			default:
 				disp.tweet(req);
@@ -116,8 +122,10 @@ function tweet(msg, uri) {
 			chrome.browserAction.setIcon({path: "img/lyq-icon-close.png"});
 		}
 	}
-}());
+}
 
+initLyq();
+//]]>
 </script>
 </head>
 </html>

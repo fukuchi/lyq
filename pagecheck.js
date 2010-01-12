@@ -1,6 +1,4 @@
-lyqInject();
-
-function lyqInject() {
+(function () {
   var loc = document.location;
   var onLyqOn = function (func) {
 	chrome.extension.sendRequest({"request": "lyq"}, function(resp) {
@@ -70,4 +68,4 @@ function lyqInject() {
 		});
 	}, false);
   }
-}
+}());

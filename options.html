@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="css/options.css" />
 <script type="text/javascript" src="lib/jquery.js"></script>
 <script type="text/javascript">
+//<![CDATA[
 var newConfigurator = function() {
 	var that = {};
 	var background = chrome.extension.getBackgroundPage();
@@ -56,10 +57,16 @@ var newConfigurator = function() {
 };
 var configs = newConfigurator();
 $(function(){configs.load()});
+//]]>
 </script>
 </head>
 <body>
+<div id="header">
 <h1>Lyq Options:</h1>
+</div>
+<div id="auth">
+  <p>Lyq is not allowed to access your Twitter account. <a href="auth.html">Start authentication</a>.</p>
+</div>
 <div id="main">
   <form>
 	<fieldset>
@@ -72,7 +79,7 @@ $(function(){configs.load()});
 	<fieldset>
 	  <legend>URL sharing</legend>
 	  <label>Tweets with URL</label>
-	  <input type="checkbox" name="tweeturi"/></br/>
+	  <input type="checkbox" name="tweeturi"/><br/>
 	</fieldset>
 	<h2>Advanced settings</h2>
 	<fieldset>

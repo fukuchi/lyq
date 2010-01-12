@@ -1,10 +1,14 @@
-div#main {
+body > div {
 	width: 40em;
-	margin: 2em auto 2em auto;
-	padding: 5pt;
+	margin: 0 auto 0 auto;
+}
+
+div#main {
 	border-width: 3px;
 	border-color: #dddddd;
 	border-style: solid;
+	margin-bottom: 2em;
+	padding: 5pt;
 }
 
 fieldset {
@@ -14,7 +18,7 @@ fieldset {
 
 label {
 	float: left;
-	width: 8em
+	width: 8em;
 }
 
 input[type="text"], input[type="password"] {
@@ -26,7 +30,7 @@ p#message {
 }
 
 h1 {
-	margin-left: 2em;
+	padding: 0;
 }
 h2 {
 	font-size: 100%;
