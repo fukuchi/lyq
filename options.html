@@ -15,9 +15,8 @@ var Configs = {
 	"eachInput": function(configs, callback) {
 		var _this = this;
 		$("input").each(function(){
-			var e = $(this);
-			var name = e.attr("name");
-			if(name !== "" && configs[name] !== undefined) {
+			var e = $(this)[0];
+			if(e.name !== "" && configs[e.name] !== undefined) {
 				callback.call(_this, e);
 			}
 		});
@@ -25,13 +24,12 @@ var Configs = {
 	"load": function(forceDefault) {
 		var configs = background.Configs.load(forceDefault);
 		this.eachInput(configs, function(e) {
-			var name = e.attr("name");
-			switch(e.attr("type")) {
+			switch(e.type) {
 				case "checkbox":
-					e.attr("checked", (configs[name] === "on")?"true":"false");
+					e.checked = (configs[e.name] === "on")?true:false;
 					break;
 				default:
-					e.val(configs[name]);
+					e.value = configs[e.name];
 					break;
 			}
 		});
@@ -42,13 +40,12 @@ var Configs = {
 	"save": function() {
 		var configs = background.Configs.load();
 		this.eachInput(configs, function(e) {
-			var name = e.attr("name");
-			switch(e.attr("type")) {
+			switch(e.type) {
 				case "checkbox":
-					configs[name] = e.attr("checked");
+					configs[e.name] = e.checked?"on":"off";
 					break;
 				default:
-					configs[name] = e.val();
+					configs[e.name] = e.value;
 					break;
 			}
 		});
