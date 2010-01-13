@@ -11,6 +11,7 @@ var Configs = {
 	defaultConfigs: {
 		"tweeturi": "on",
 		"shortenuri": "bitly",
+		"hashtag": "",
 		"bitly_login" : "kentaro",
 		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
 	},
@@ -79,14 +80,20 @@ function shortenURI(uri) {
 // * callback function will be called when the message is posted.
 function tweet(msg, uri, callback) {
 	var configs = Configs.load();
-	var length = msg.length;
-	var update_url = "http://twitter.com/statuses/update.json";
+	var length;
+
+    var hashtag = configs["hashtag"];
+    if(hashtag) {
+	    msg += " #" + hashtag;
+    }
+	length = msg.length;
 	if (configs["tweeturi"]) {
 		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
 		}
 	}
 
+	var update_url = "http://twitter.com/statuses/update.json";
 	var sparams = TwitterOAuth.prepareSignedParams(update_url, {"status": msg}, "POST");
 
 	$.ajax({

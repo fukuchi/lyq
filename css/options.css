@@ -25,8 +25,12 @@ input[type="text"], input[type="password"] {
 	width: 20em;
 }
 
-p#message {
-	height: 1em;
+div.entry {
+	clear: both;
+}
+
+div.entry + div.entry {
+	margin-top: 5pt;
 }
 
 h1 {

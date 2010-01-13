@@ -17,7 +17,7 @@ var Configs = {
 		$("input").each(function(){
 			var e = $(this);
 			var name = e.attr("name");
-			if(name !== "" && configs[name]) {
+			if(name !== "" && configs[name] !== undefined) {
 				callback.call(_this, e);
 			}
 		});
@@ -97,37 +97,47 @@ showAction();
 </script>
 </head>
 <body>
-<div id="header">
-<h1>Lyq Options:</h1>
-</div>
-<div id="signin" style="display:none">
-  <p>Lyq is not allowed to access your Twitter account. <a href="javascript:signin()">Sign in</a>.</p>
-</div>
-<div id="signout" style="display:none">
-  <p><a href="javascript:signout()">Sign out</a>.</p>
-</div>
-<div id="main">
-  <form>
-	<fieldset>
-	  <legend>URL sharing</legend>
-	  <label>Tweets with URL</label>
-	  <input type="checkbox" name="tweeturi"/><br/>
-	</fieldset>
-	<h2>Advanced settings</h2>
-	<fieldset>
-	  <legend>Bit.ly configuration</legend>
-	  <label>Account</label>
-	  <input type="text" name="bitly_login"/><br/>
-	  <label>API key</label>
-	  <input type="text" name="bitly_apiKey"/>
-	</fieldset>
-    <p>
-	<input type="button" value="Save" onclick="Configs.save();" />
-    <input type="button" value="Reset" onclick="Configs.load();" />
-	<input type="button" value="Reset to default" onclick="Configs.forceDefault();" />
-	<span id="message"></span>
-	</p>
-  </form>
-</div>
+  <div id="header">
+    <h1>Lyq Options:</h1>
+  </div>
+  <div id="signin" style="display:none">
+    <p>Lyq is not allowed to access your Twitter account. <a href="javascript:signin()">Sign in</a>.</p>
+  </div>
+  <div id="signout" style="display:none">
+    <p><a href="javascript:signout()">Sign out</a>.</p>
+  </div>
+  <div id="main">
+    <form>
+      <fieldset>
+        <legend>Tweet options</legend>
+        <div class="entry">
+          <label>Tweets with URL</label>
+          <input type="checkbox" name="tweeturi"/>
+        </div>
+        <div class="entry">
+          <label>Hashtag</label>#
+          <input type="text" name="hashtag"/>
+        </div>
+      </fieldset>
+      <h2>Advanced settings</h2>
+      <fieldset>
+        <legend>Bit.ly configuration</legend>
+        <div class="entry">
+          <label>Account</label>
+          <input type="text" name="bitly_login"/>
+        </div>
+        <div class="entry">
+          <label>API key</label>
+          <input type="text" name="bitly_apiKey"/>
+        </div>
+      </fieldset>
+      <div>
+        <input type="button" value="Save" onclick="Configs.save();" />
+        <input type="button" value="Reset" onclick="Configs.load();" />
+        <input type="button" value="Reset to default" onclick="Configs.forceDefault();" />
+        <span id="message"></span>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
