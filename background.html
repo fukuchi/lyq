@@ -9,7 +9,7 @@
 //<![CDATA[
 var Configs = {
 	defaultConfigs: {
-		"tweeturi": "on",
+		"tweeturi": "off",
 		"shortenuri": "bitly",
 		"hashtag": "",
 		"bitly_login" : "kentaro",
@@ -28,13 +28,14 @@ var Configs = {
 		if (forceDefault) {
 			return configs;
 		}
-		try {
-			var stored = JSON.parse(localStorage["configs"]);
-			if (stored) {
-				$.extend(true, configs, stored);
-			}
-		} catch (e) {
-			alert("Your configuration file is broken.\n\nPlease open the option page for reconfiguration.");
+    	try {
+    		var stored = localStorage["configs"];
+    		if (stored !== undefined) {
+    			$.extend(true, configs, JSON.parse(stored));
+    		}
+    	} catch (e) {
+		    alert("Your configuration file is broken.\n\nPlease open the option page for reconfiguration.");
+            delete localStorage["configs"];
 		}
 		return configs;
 	},
