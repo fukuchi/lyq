@@ -15,11 +15,10 @@
       "js": [ "twitter_oauthpin.js" ],
       "matches": [ "http://twitter.com/oauth/authorize", "https://twitter.com/oauth/authorize" ]
    }],
-   "description": "Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets (leaks) what you've searched automatically. Do NOT use this extension unless you know what you are doing with it. You will face serious security risks.",
+   "description": "Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets (leaks) what you've searched automatically.",
    "permissions": [ "tabs", "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ],
    "icons": {
    		"32": "img/lyq-icon-32x32.png",
    		"48": "img/lyq-icon-48x48.png"
-	},
-   "update_url": "http://megaui.net/fukuchi/work/lyq/update.xml"
+	}
 }
