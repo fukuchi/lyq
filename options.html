@@ -58,7 +58,9 @@ var newConfigurator = function() {
 };
 
 function signin() {
-	TwitterOAuth.prepareForTweet();
+	background.signin(function(result) {
+		showAction();
+	});
 }
 
 function signout() {
@@ -76,7 +78,9 @@ function showAction() {
 	isAuthenticated(function(resp) {
 		if(resp) {
 			$("#signin").hide();
+			$("#signout").show();
 		} else {
+			$("#signin").show();
 			$("#signout").hide();
 		}
 	});

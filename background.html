@@ -38,6 +38,7 @@ var Configs = {
 	lyq: function() { return localStorage["mode"]; },
 	setLyq: function(mode) {
 		localStorage["mode"] = mode;
+		updateIcon();
 		if(mode === "on") {
 			TwitterOAuth.prepareForTweet();
 		}
@@ -113,11 +114,13 @@ function updateIcon() {
 	}
 }
 
+function signin(callback) {
+	TwitterOAuth.prepareForTweet(callback);
+}
+
 function signout() {
-	localStorage.removeItem("oauth_token_data");
 	TwitterOAuth.reset();
 	Configs.setLyq("off");
-	updateIcon();
 }
 
 function initLyq() {
@@ -131,7 +134,12 @@ function initLyq() {
 				resp(Configs.lyq());
 				break;
 			case "twitter_pin":
-				TwitterOAuth.getAccessToken(req["pin"], function(result) {resp(result)});
+				TwitterOAuth.getAccessToken(req["pin"], function(result) {
+					if(!result) {
+						Configs.setLyq("off");
+					}
+					resp(result);
+				});
 				break;
 			case "isAuthenticated":
 				resp(TwitterOAuth.authenticated);
@@ -148,7 +156,6 @@ function initLyq() {
 		} else {
 			Configs.setLyq("on");
 		}
-		updateIcon();
 	});
 }
 

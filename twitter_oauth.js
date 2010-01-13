@@ -8,21 +8,22 @@ var TwitterOAuth = {
 	},
 	oauth_token: null,
 	oauth_token_secret: null,
-	user_id: null,
 	authenticated: false,
+	onAccessTokenReceived: null,
 	onAuthenticated: null,
 
 	reset: function() {
+		localStorage.removeItem("oauth_token_data");
 		this.oauth_token = null;
 		this.oauth_token_secret = null;
-		this.oauth_token_data = null;
-		this.user_id = null;
 		this.authenticated = false;
+		this.onAccessTokenReceived = null;
 		this.onAuthenticated = null;
 	},
 
-	prepareForTweet: function() {
+	prepareForTweet: function(callback) {
 		var oauth_token_data = localStorage["oauth_token_data"];
+		this.onAuthenticated = callback;
 		if(oauth_token_data) {
 			this.accessTokenCallback(oauth_token_data);
 		} else {
@@ -120,13 +121,16 @@ var TwitterOAuth = {
 			this.authenticated = true;
 			result = true;
 		}
+		if(this.onAccessTokenReceived) {
+			this.onAccessTokenReceived(result);
+		}
 		if(this.onAuthenticated) {
 			this.onAuthenticated(result);
 		}
 	},
 
 	getAccessToken: function(pin, callback) {
-		this.onAuthenticated = callback;
+		this.onAccessTokenReceived = callback;
 		this.makeRequest(this.consumerSettings.access_token_url,
 						 {"oauth_verifier": pin},
 						 this.accessTokenCallback);
