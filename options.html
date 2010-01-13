@@ -5,62 +5,68 @@
 <script type="text/javascript" src="lib/jquery.js"></script>
 <script type="text/javascript">
 //<![CDATA[
+function _gt(msg) {
+	return chrome.i18n.getMessage(msg);
+}
+
 var background = chrome.extension.getBackgroundPage();
 
-var newConfigurator = function() {
-	var that = {};
-
-	that.configs = background.Configs;
-	that.load = function(forceDefault) {
-		var configs = background.Configs.load(forceDefault);
+var Configs = {
+	"eachInput": function(configs, callback) {
+		var _this = this;
 		$("input").each(function(){
 			var e = $(this);
 			var name = e.attr("name");
 			if(name !== "" && configs[name]) {
-				switch(e.attr("type")) {
-					case "checkbox":
-						e.attr("checked", (configs[name] === "on")?"true":"false");
-						break;
-					default:
-						e.val(configs[name]);
-						break;
-				}
+				callback.call(_this, e);
+			}
+		});
+	},
+	"load": function(forceDefault) {
+		var configs = background.Configs.load(forceDefault);
+		this.eachInput(configs, function(e) {
+			var name = e.attr("name");
+			switch(e.attr("type")) {
+				case "checkbox":
+					e.attr("checked", (configs[name] === "on")?"true":"false");
+					break;
+				default:
+					e.val(configs[name]);
+					break;
 			}
 		});
 		if (forceDefault) {
-			$("#message").stop().text("Options are reset to default.").show().css('opacity', '1.0').fadeOut(5000);
+			showMessage(_gt("Options_are_reset_to_default"));
 		}
-	};
-	that.save = function() {
+	},
+	"save": function() {
 		var configs = background.Configs.load();
-		$("input").each(function(){
-			var e = $(this);
+		this.eachInput(configs, function(e) {
 			var name = e.attr("name");
-			if(name !== "" && configs[name] !== undefined) {
-				switch(e.attr("type")) {
-					case "checkbox":
-						configs[name] = e.attr("checked");
-						break;
-					default:
-						configs[name] = e.val();
-						break;
-				}
+			switch(e.attr("type")) {
+				case "checkbox":
+					configs[name] = e.attr("checked");
+					break;
+				default:
+					configs[name] = e.val();
+					break;
 			}
 		});
 		background.Configs.save(configs);
-		$("#message").stop().text("Options saved.").show().css('opacity', '1.0').fadeOut(5000);
-	};
-	that.forceDefault = function() {
-		that.load(true);
-	};
-
-	return that;
+		showMessage(_gt("Options_saved"));
+	},
+	"forceDefault": function() {
+		this.load(true);
+	}
 };
 
+function showMessage(msg) {
+		$("#message").stop().text(msg).show().css('opacity', '1.0').fadeOut(5000);
+}
+
 function isAuthenticated(callback) {
-	chrome.extension.sendRequest({"request": "isAuthenticated"}, function(resp) {
-		callback(resp);
-	});
+	chrome.extension.sendRequest({"request": "isAuthenticated"},
+								 function(resp) { callback(resp); });
 }
 
 function signin() {
@@ -84,9 +90,7 @@ function showAction() {
 	});
 }
 
-var configs = newConfigurator();
-$(function(){configs.load()});
-
+$(function(){Configs.load()});
 showAction();
 
 //]]>
@@ -118,9 +122,9 @@ showAction();
 	  <input type="text" name="bitly_apiKey"/>
 	</fieldset>
     <p>
-	<input type="button" value="Save" onclick="configs.save();" />
-    <input type="button" value="Reset" onclick="configs.load();" />
-	<input type="button" value="Reset to default" onclick="configs.forceDefault();" />
+	<input type="button" value="Save" onclick="Configs.save();" />
+    <input type="button" value="Reset" onclick="Configs.load();" />
+	<input type="button" value="Reset to default" onclick="Configs.forceDefault();" />
 	<span id="message"></span>
 	</p>
   </form>

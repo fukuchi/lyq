@@ -6,5 +6,7 @@
 	"Google": { "message": "Google" },
 	"Bing": { "message": "Bing" },
 	"YouTube": { "message": "YouTube" },
-	"NicoNico": { "message": "ニコニコ" }
+	"NicoNico": { "message": "ニコニコ" },
+	"Options_are_reset_to_default": { "message": "設定を再初期化しました" },
+	"Options_saved": { "message": "設定を保存しました"}
 }

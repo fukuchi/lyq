@@ -1,4 +1,4 @@
-Lyq: Leak Your Query - version 0.8
+Lyq: Leak Your Query - version 1.0
 
 GENERAL INFORMATION
 ===================
@@ -16,6 +16,7 @@ Supported Search Services
 * Bing web, images,videos, news
 * YouTube
 * Nico Nico Douga
+
 
 WARNINGS
 ========
@@ -38,18 +39,34 @@ to install Lyq from web. Instead, follow these steps:
 This installing process is needed again when you restart Chrome. Sorry for your
 inconvenience.
 
-After the first installing of Lyq, open the configuration page by clicking
-"Option" button from the Extensions page, and set your twitter account.
-(Currently Lyq uses Basic authentication, which is not recommended by twitter.)
+After the first installing of Lyq, it is required to sign in Twitter to
+authenticate Lyq. When it is authenticated, no more signing is needed until you
+sign out explicitly (click "sign out" at the option page).
 
 
 TODO
 ====
 * Other search services.
 * Other URI shortener services.
-* OAuth authentication.
+
+
+ACKNOWLEDGEMENT
+===============
+Lyq uses the following softwares:
+- jQuery
+- OAuth for Javascript (by Netflix, Inc.)
+- SHA1 for Javascript (by Paul Johnston)
+
+I heavily referred the source code of Chrome Bird. Many code snippets are taken
+from it.
 
 
 LICENSE
 =======
 Lyq is released under the BSD-style license. Check the LICENSE file.
+
+
+AUTHOR
+======
+Kentaro Fukuchi <fukuchi@megaui.net>
+Visit http://megaui.net/fukuchi/works/lyq/index.en.html for further information.

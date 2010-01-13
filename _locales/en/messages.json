@@ -6,5 +6,7 @@
 	"Google": { "message": "Google" },
 	"Bing": { "message": "Bing" },
 	"YouTube": { "message": "YouTube" },
-	"NicoNico": { "message": "NicoNico" }
+	"NicoNico": { "message": "NicoNico" },
+	"Options_are_reset_to_default": { "message": "Options are reset to default." },
+	"Options_saved": { "message": "Options saved."}
 }
