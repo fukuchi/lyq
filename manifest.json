@@ -1,6 +1,6 @@
 {
    "name": "Lyq",
-   "version": "1.0",
+   "version": "1.1",
    "default_locale": "en",
    "background_page": "background.html",
    "options_page": "options.html",
