@@ -14,7 +14,7 @@ var Configs = {
 		"bitly_login" : "kentaro",
 		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
 	},
-	obsoleteConfigs: ["shortenurl", "username", "password"],
+	obsoleteConfigs: [],
 	save: function(configs) {
 		var i, len = this.obsoleteConfigs.length;
 		for (i=0; i<len; i++) {
@@ -32,7 +32,9 @@ var Configs = {
 			if (stored) {
 				$.extend(true, configs, stored);
 			}
-		} catch (e) { }
+		} catch (e) {
+			alert("Your configuration file is broken.\n\nPlease open the option page for reconfiguration.");
+		}
 		return configs;
 	},
 	lyq: function() { return localStorage["mode"]; },
@@ -46,6 +48,7 @@ var Configs = {
 };
 
 function shortenURI(uri) {
+// currently only Bit.ly is supported.
 	var configs = Configs.load();
 	var xhr = new XMLHttpRequest();
 	var param = {"login": configs["bitly_login"],
@@ -57,50 +60,51 @@ function shortenURI(uri) {
 	for (var key in param) {
 		pairs.push(key + "=" + param[key]);
 	}
+	// should be asynchronous?
 	xhr.open("GET", "http://api.bit.ly/shorten?" + pairs.join("&"), false);
 	xhr.send(null);
 	if (xhr.status === 200) {
 		var res = JSON.parse(xhr.responseText);
 		var entry;
 		for (var key in res.results) {
-			entry = res.results[key];
-			break;
+			if(key === uri) {
+				return res.results[key].shortUrl;
+			}
 		}
-		return entry.shortUrl;
 	}
 	return null;
 }
 
+// Tweet a message with or without shorten URI.
+// * callback function will be called when the message is posted.
 function tweet(msg, uri, callback) {
 	var configs = Configs.load();
 	var length = msg.length;
+	var update_url = "http://twitter.com/statuses/update.json";
 	if (configs["tweeturi"]) {
 		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
 		}
 	}
-	var params = {"status": msg};
-	var sparams = TwitterOAuth.prepareSignedParams("http://twitter.com/statuses/update.json", params, "POST");
+
+	var sparams = TwitterOAuth.prepareSignedParams(update_url, {"status": msg}, "POST");
 
 	$.ajax({
 		"type": "POST",
-		"url": "http://twitter.com/statuses/update.json",
+		"url": update_url,
 		"data": sparams,
 		"dataType": "json",
 		"timeout": 6000,
 		"error": function (req, status, error) {
+			// just logging and ignoring
 			console.log(req.responseText);
 			console.log(JSON.stringify(error));
-			console.log(status);
 		},
 		"success": function(data, status) {
 			if(callback) {
 				callback(data);
 			}
 		},
-		"complete": function(req) {
-			if(!req) return;
-		}
 	});
 }
 
@@ -115,6 +119,7 @@ function updateIcon() {
 }
 
 function signin(callback) {
+	// callback when it is ready.
 	TwitterOAuth.prepareForTweet(callback);
 }
 
@@ -160,7 +165,7 @@ function initLyq() {
 }
 
 initLyq();
-TwitterOAuth.prepareForTweet();
+signin();
 //]]>
 </script>
 </head>

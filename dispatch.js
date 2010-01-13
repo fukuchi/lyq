@@ -92,8 +92,6 @@ function dispatcher() {
 			   tweetYouTube(loc);
 		   } else if (host === "www.nicovideo.jp") {
 			   tweetNicovideo(loc);
-		   } else if (host === "localhost") {
-			   tweetTest(loc);
 		   }
 	   }
 	};
