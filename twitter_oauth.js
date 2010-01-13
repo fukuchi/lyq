@@ -3,12 +3,11 @@ var TwitterOAuth = {
 		"consumer_key": "CpIfE9K0wbYSlJKguUgEuw",
 		"consumer_secret": "DrTVxcsi5qGB3sSDTtyjagYu6p3LfVYpJGtcS2GsyZE",
 		"request_token_url": "http://twitter.com/oauth/request_token",
-		"access_token_url": "http://twitter.com/oauth/access_token2",
-		"authorize_url": "http://twitter.com/oauth/authorize"
+		"access_token_url": "http://twitter.com/oauth/access_token",
+		"authorize_url": "https://twitter.com/oauth/authorize"
 	},
 	oauth_token: null,
 	oauth_token_secret: null,
-	oauth_token_data: localStorage["oauth_token_data"],
 	user_id: null,
 	authenticated: false,
 	onAuthenticated: null,
@@ -23,8 +22,9 @@ var TwitterOAuth = {
 	},
 
 	prepareForTweet: function() {
-		if(this.oauth_token_data) {
-			this.accessTokenCallback(this.oauth_token_data);
+		var oauth_token_data = localStorage["oauth_token_data"];
+		if(oauth_token_data) {
+			this.accessTokenCallback(oauth_token_data);
 		} else {
 			this.getRequestToken();
 		}
@@ -32,18 +32,21 @@ var TwitterOAuth = {
 
 	prepareSignedParams: function(url, params) {
 		var accessor = {
-			consumerSecret: this.consumerSettings.consumer_secret
+			"consumerSecret": this.consumerSettings.consumer_secret,
 		};
 		var message = {
 			"method": "POST",
 			"action": url,
 			"parameters": [
-				['oauth_consumer_key', this.consumerSettings.consumer_key],
-				['oauth_signature_method', 'HMAC-SHA1']
+				["oauth_consumer_key", this.consumerSettings.consumer_key],
+				["oauth_signature_method", "HMAC-SHA1"]
 			]
 		};
 		if(this.oauth_token) {
 			OAuth.setParameter(message, "oauth_token", this.oauth_token);
+		}
+		if(this.oauth_token_secret) {
+			accessor["tokenSecret"] = this.oauth_token_secret;
 		}
 		if(params) {
 			for(var p in params) {
@@ -114,9 +117,7 @@ var TwitterOAuth = {
 			params = OAuth.getParameterMap(data);
 			this.oauth_token = params["oauth_token"];
 			this.oauth_token_secret = params["oauth_token_secret"];
-			this.user_id = params["user_id"];
 			this.authenticated = true;
-
 			result = true;
 		}
 		if(this.onAuthenticated) {
@@ -126,7 +127,7 @@ var TwitterOAuth = {
 
 	getAccessToken: function(pin, callback) {
 		this.onAuthenticated = callback;
-		this.makeRequest(this.consumerSettings.request_token_url,
+		this.makeRequest(this.consumerSettings.access_token_url,
 						 {"oauth_verifier": pin},
 						 this.accessTokenCallback);
 	}

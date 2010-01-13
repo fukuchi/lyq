@@ -13,10 +13,8 @@ var Configs = {
 		"shortenuri": "bitly",
 		"bitly_login" : "kentaro",
 		"bitly_apiKey" : "R_3af5ffa1b78539a1d3df3c2a16edfb21",
-		"username" : "username",
-		"password" : "",
 	},
-	obsoleteConfigs: ["shortenurl"],
+	obsoleteConfigs: ["shortenurl", "username", "password"],
 	save: function(configs) {
 		var i, len = this.obsoleteConfigs.length;
 		for (i=0; i<len; i++) {
@@ -72,9 +70,9 @@ function shortenURI(uri) {
 	return null;
 }
 
-function tweet(msg, uri) {
+function tweet(msg, uri, callback) {
 	var configs = Configs.load();
-	var length = decodeURI(msg).length;
+	var length = msg.length;
 	if (configs["tweeturi"]) {
 		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
@@ -89,6 +87,19 @@ function tweet(msg, uri) {
 		"data": sparams,
 		"dataType": "json",
 		"timeout": 6000,
+		"error": function (req, status, error) {
+			console.log(req.responseText);
+			console.log(JSON.stringify(error));
+			console.log(status);
+		},
+		"success": function(data, status) {
+			if(callback) {
+				callback(data);
+			}
+		},
+		"complete": function(req) {
+			if(!req) return;
+		}
 	});
 }
 
@@ -121,6 +132,9 @@ function initLyq() {
 				break;
 			case "twitter_pin":
 				TwitterOAuth.getAccessToken(req["pin"], function(result) {resp(result)});
+				break;
+			case "isAuthenticated":
+				resp(TwitterOAuth.authenticated);
 				break;
 			default:
 				disp.tweet(req);

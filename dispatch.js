@@ -17,6 +17,10 @@ function dispatcher() {
 		return chrome.i18n.getMessage(msg);
 	}
 
+	function decode(msg) {
+		return decodeURIComponent(msg.replace(/\+/g, " "));
+	}
+
 	function tweetGoogleMap(loc) {
 		if (loc.special.query) {
 			tweet(_gt(GoogleServices["maps"]) + ": " + loc.special.query, loc.special.href);
@@ -36,7 +40,7 @@ function dispatcher() {
 		}
 		var m = loc.search.match(/(\?|&)q=([^?&]*)/);
 		if (m && m[2]) {
-			tweet(prefix + m[2], loc.href);
+			tweet(prefix + decode(m[2]), loc.href);
 		}
 	}
 
@@ -59,21 +63,21 @@ function dispatcher() {
 		}
 		var m = loc.search.match(/(\?|&)q=([^&]*)/);
 		if (m && m[2]) {
-			tweet(prefix + ": " + m[2], loc.href);
+			tweet(prefix + ": " + decode(m[2]), loc.href);
 		}
 	}
 
 	function tweetYouTube(loc) {
 		var m = loc.search.match(/(\?|&)search_query=([^&]*)/);
 		if (m && m[2]) {
-			tweet(_gt("YouTube") + ": " + m[2], loc.href);
+			tweet(_gt("YouTube") + ": " + decode(m[2]), loc.href);
 		}
 	}
 
 	function tweetNicovideo(loc) {
 		var m = loc.pathname.match(/^\/([^/]*)\/([^/]*)/);
 		if (m && m[1].match(/(search|tag)/) && m[2]) {
-			tweet(_gt("NicoNico") + ": " + m[2], loc.href);
+			tweet(_gt("NicoNico") + ": " + decode(m[2]), loc.href);
 		}
 	}
 
