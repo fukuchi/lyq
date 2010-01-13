@@ -57,21 +57,19 @@ var newConfigurator = function() {
 	return that;
 };
 
-function signin() {
-	background.signin(function(result) {
-		showAction();
+function isAuthenticated(callback) {
+	chrome.extension.sendRequest({"request": "isAuthenticated"}, function(resp) {
+		callback(resp);
 	});
+}
+
+function signin() {
+	background.signin(function(result) { showAction(); });
 }
 
 function signout() {
 	background.signout();
 	showAction();
-}
-
-function isAuthenticated(callback) {
-	chrome.extension.sendRequest({"request": "isAuthenticated"}, function(resp) {
-		callback(resp);
-	});
 }
 
 function showAction() {
@@ -98,10 +96,10 @@ showAction();
 <div id="header">
 <h1>Lyq Options:</h1>
 </div>
-<div id="signin">
+<div id="signin" style="display:none">
   <p>Lyq is not allowed to access your Twitter account. <a href="javascript:signin()">Sign in</a>.</p>
 </div>
-<div id="signout">
+<div id="signout" style="display:none">
   <p><a href="javascript:signout()">Sign out</a>.</p>
 </div>
 <div id="main">
