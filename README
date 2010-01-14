@@ -6,12 +6,11 @@ Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets
 (leaks) what you've searched automatically. Do NOT use this extension unless
 you know what you are doing with it. You will face serious security risks.
 
-Lyq extracts a search query from the following search services and tweets it
-with a shortened link to that page. You can disable tweeting by the toggle
-button displayed besides the location bar.
 
 Supported Search Services
 -------------------------
+Lyq extracts a search query from the following search services:
+
 * Google web, images, videos, news, maps (experimental)
 * Bing web, images,videos, news, maps (experimental)
 * YouTube
@@ -41,8 +40,11 @@ Visit:
 https://chrome.google.com/extensions/detail/cgiflojkgbimjdbfgfammdbiafknddem
 
 After the first installing of Lyq, it is required to sign in Twitter to
-authenticate Lyq. When it is authenticated, no more signing is needed until you
-sign out explicitly (click "sign out" at the option page).
+authenticate Lyq. Please follow the instructions displayed in newly opened tab
+and sign in to Twitter.
+
+When it is authenticated, no more signing is needed until you sign out
+explicitly (click "sign out" at the option page).
 
 
 TODO
