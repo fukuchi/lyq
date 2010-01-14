@@ -1,6 +1,6 @@
 {
    "name": "Lyq",
-   "version": "1.1",
+   "version": "1.2",
    "default_locale": "en",
    "background_page": "background.html",
    "options_page": "options.html",
@@ -15,7 +15,7 @@
       "js": [ "twitter_oauthpin.js" ],
       "matches": [ "http://twitter.com/oauth/authorize", "https://twitter.com/oauth/authorize" ]
    }],
-   "description": "Lyq (Leak Your Query) is the world smallest micro blogging tool that tweets (leaks) what you've searched automatically.",
+   "description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets (leaks) what you've searched automatically.",
    "permissions": [ "tabs", "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ],
    "icons": {
    		"32": "img/lyq-icon-32x32.png",

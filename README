@@ -12,7 +12,6 @@ you thought, that previously only your search services could know.
 Do NOT use this extension unless you know what you are doing with it. You will
 face serious security risks.
 
-
 Supported Search Services
 -------------------------
 Lyq extracts a search query from the following search services:
@@ -50,6 +49,12 @@ and sign in to a Twitter account that you want to post your queries.
 
 When it is authenticated, no more signing is needed until you sign out
 explicitly (click "sign out" at the option page).
+
+DEPENDENCY
+----------
+Lyq is developed on the latest unstable version of the Google Chrome. Lyq 
+(probably) does not work on the stable version (3.x), and internationalization
+(I18N) does not work on earlier than 4.0.266.
 
 
 TODO
