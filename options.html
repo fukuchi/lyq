@@ -12,7 +12,7 @@ function _gt(msg) {
 var background = chrome.extension.getBackgroundPage();
 
 var Configs = {
-	"eachInput": function(configs, callback) {
+	eachInput: function(configs, callback) {
 		var _this = this;
 		$("input").each(function(){
 			var e = $(this)[0];
@@ -21,7 +21,7 @@ var Configs = {
 			}
 		});
 	},
-	"load": function(forceDefault) {
+	load: function(forceDefault) {
 		var configs = background.Configs.load(forceDefault);
 		this.eachInput(configs, function(e) {
 			switch(e.type) {
@@ -37,7 +37,7 @@ var Configs = {
 			showMessage(_gt("Options_are_reset_to_default"));
 		}
 	},
-	"save": function() {
+	save: function() {
 		var configs = background.Configs.load();
 		this.eachInput(configs, function(e) {
 			switch(e.type) {
@@ -52,7 +52,7 @@ var Configs = {
 		background.Configs.save(configs);
 		showMessage(_gt("Options_saved"));
 	},
-	"forceDefault": function() {
+	forceDefault: function() {
 		this.load(true);
 	}
 };
