@@ -4,8 +4,8 @@
 
 	if (!msg_text.match(/Lyq/) || msg_text.match(/denied/i)) return;
 
-	var pin = document.getElementById("oauth_pin").textContent;
-	msg.children[1].textContent = "Now Lyq is reading the PIN automatically";
+	var pin = document.getElementById("oauth_pin").innerText.replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g,"");
+	msg.children[1].textContent = "Now Lyq is reading the PIN automatically. (PIN: " + pin + ")";
 
 	chrome.extension.sendRequest({"request": "twitter_pin", "pin": pin},
 		function(resp) {
