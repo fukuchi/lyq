@@ -1,5 +1,12 @@
+2010.1.16
+	* twitter_oauthpin.js:
+	  - Now it steal PIN only if the authorize page is for Lyq.
+
 2010.1.15
 	* jQuery is updated to version 1.4.
+	* twitter_oauthpin.js:
+	  - Contents rewriting of Twitter's consumer authentication page is
+	    improved.
 
 2010.1.13
 	* Version 1.1 has been released.
