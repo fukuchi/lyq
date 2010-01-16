@@ -10,6 +10,8 @@
 	googleMap();
   } else if (loc.href.match(/www.bing.com\/maps\//)) {
     bingMap();
+  } else if (loc.hostname === "twitter.com") {
+    twitter();
   } else {
   	onLyqOn(function() {
   		var req = {
@@ -24,7 +26,7 @@
   }
 
   function googleMap() {
-	var q_form = document.forms["q_form"];
+	var q_form = document.getElementById("q_form");
 	var tweet = function(query, href) {
 		onLyqOn(function() {
 			var req = {
@@ -49,7 +51,7 @@
   }
 
   function bingMap() {
-	var veform = document.forms["veform"];
+	var veform = document.getElementById("veform");
 	var tweet = function(query, href) {
 	}
 	veform.addEventListener("submit", function() {
@@ -63,6 +65,25 @@
 				"search": loc.search,
 				"pathname": loc.pathname,
 				"special" : {"service": "maps", "query": query}
+			};
+			chrome.extension.sendRequest(req);
+		});
+	}, false);
+  }
+  function twitter() {
+	  var search = document.getElementById("sidebar_search");
+	  search.addEventListener("submit", function() {
+		var query, href;
+		query = document.getElementById("sidebar_search_q").value;
+		href = "http://" + document.location.hostname + "/#search?q=" + encodeURI(query).replace(/#/g, "%23");
+		onLyqOn(function() {
+			var req = {
+				"request": "tweet",
+				"href": loc.href,
+				"hostname": loc.hostname,
+				"search": loc.search,
+				"pathname": loc.pathname,
+				"special" : {"service": "twitter", "query": query, "href": href}
 			};
 			chrome.extension.sendRequest(req);
 		});

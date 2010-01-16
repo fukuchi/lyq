@@ -10,15 +10,16 @@
 	},
    "content_scripts": [ {
       "js": [ "pagecheck.js" ],
-      "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*" ]
+      "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "http://twitter.com/*", "https://twitter.com/*" ]
    }, {
       "js": [ "twitter_oauthpin.js" ],
       "matches": [ "http://twitter.com/oauth/authorize", "https://twitter.com/oauth/authorize" ]
    }],
-   "description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets (leaks) what you've searched automatically.",
+   "description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets what you've searched automatically.",
    "permissions": [ "tabs", "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ],
    "icons": {
    		"32": "img/lyq-icon-32x32.png",
    		"48": "img/lyq-icon-48x48.png"
-	}
+	},
+	"minimum_chrome_version": "4.0.249"
 }

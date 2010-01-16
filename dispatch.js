@@ -14,7 +14,7 @@ function dispatcher() {
 	};
 
 	function _gt(msg) {
-		return chrome.i18n.getMessage(msg);
+		return chrome.i18n.getMessage(msg) || msg;
 	}
 
 	function decode(msg) {
@@ -81,6 +81,14 @@ function dispatcher() {
 		}
 	}
 
+	function tweetTwitter(loc) {
+		var query = loc.special.query;
+		var href = loc.special.href;
+		if(query) {
+			tweet(_gt("Twitter") + ": " + decode(query), href);
+		}
+	}
+
 	return {
 		tweet: function(loc) {
 		   var host = loc.hostname;
@@ -92,6 +100,8 @@ function dispatcher() {
 			   tweetYouTube(loc);
 		   } else if (host === "www.nicovideo.jp") {
 			   tweetNicovideo(loc);
+		   } else if (host === "twitter.com") {
+			   tweetTwitter(loc);
 		   }
 	   }
 	};
