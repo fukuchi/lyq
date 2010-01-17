@@ -1,4 +1,4 @@
-Lyq: Leak Your Query - version 1.1
+Lyq: Leak Your Query - version 1.3
 
 GENERAL INFORMATION
 ===================
@@ -20,6 +20,7 @@ Lyq extracts a search query from the following search services:
 * Bing web, images,videos, news, maps (experimental)
 * YouTube
 * Nico Nico Douga
+* Twitter
 
 
 USAGE
