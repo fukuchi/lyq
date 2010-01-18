@@ -14,7 +14,7 @@ function dispatcher() {
 	};
 
 	function _gt(msg) {
-		return chrome.i18n.getMessage(msg) || msg;
+		return (chrome.i18n && chrome.i18n.getMessage(msg)) || msg;
 	}
 
 	function decode(msg) {
