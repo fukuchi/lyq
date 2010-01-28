@@ -71,8 +71,8 @@ Lyq uses the following softwares:
 - OAuth for Javascript (by Netflix, Inc.)
 - SHA1 for Javascript (by Paul Johnston)
 
-I heavily referred the source code of Chrome Bird. Many code snippets are taken
-from it.
+I heavily referred the source code of Chromed Bird. Many code snippets are
+taken from it.
 
 
 LICENSE
