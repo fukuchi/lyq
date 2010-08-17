@@ -1,3 +1,20 @@
+2010.8.18
+	* lib/jquery.js
+	  - Upgraded to the latest release (1.4.2).
+	* lib/oauth.js
+	  - Upgraded to the latest revision (r1217).
+
+2010.3.26
+	* Bumped version to 1.5.
+
+2010.2.7
+	* lib/jquery.js
+	  - Upgraded to the latest release (1.4.1).
+
+2010.1.28
+	* background.html
+	  - URL of Twitter's API access has been changed.
+
 2010.1.18
 	* dispatch.js, options.html:
 	  - Workaround for earlier google chrome who has no chrome.i18n.
