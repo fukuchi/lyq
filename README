@@ -1,4 +1,4 @@
-Lyq: Leak Your Query - version 1.4
+Lyq: Leak Your Query - version 1.5
 
 GENERAL INFORMATION
 ===================
@@ -82,5 +82,5 @@ Lyq is released under the BSD-style license. Check the LICENSE file.
 
 AUTHOR
 ======
-Kentaro Fukuchi <fukuchi@megaui.net>
-Visit http://megaui.net/fukuchi/works/lyq/index.en.html for further information.
+Kentaro Fukuchi <kentaro@fukuchi.org>
+Visit http://fukuchi.org/works/lyq/index.en.html for further information.

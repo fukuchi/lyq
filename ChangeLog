@@ -1,6 +1,11 @@
 2010.11.7
 	* background.html:
 	  - Latest Chrome does not support "<script ... />" style.
+	* options.html:
+	  - URL of Lyq home page has been changed.
+	* README:
+	  - Bumped verstion to 1.5.
+	  - Mail address and URL have changed.
 
 2010.8.18
 	* lib/jquery.js:
