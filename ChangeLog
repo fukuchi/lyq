@@ -1,18 +1,22 @@
+2010.11.7
+	* background.html:
+	  - Latest Chrome does not support "<script ... />" style.
+
 2010.8.18
-	* lib/jquery.js
+	* lib/jquery.js:
 	  - Upgraded to the latest release (1.4.2).
-	* lib/oauth.js
+	* lib/oauth.js:
 	  - Upgraded to the latest revision (r1217).
 
 2010.3.26
 	* Bumped version to 1.5.
 
 2010.2.7
-	* lib/jquery.js
+	* lib/jquery.js:
 	  - Upgraded to the latest release (1.4.1).
 
 2010.1.28
-	* background.html
+	* background.html:
 	  - URL of Twitter's API access has been changed.
 
 2010.1.18
