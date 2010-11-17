@@ -2,6 +2,9 @@
 	* lib/jquery.js:
 	  - Upgraded to the latest release (1.4.4).
 	* Version 1.5 has been released.
+	* background.html:
+	  - "Tweets with URL" option did not work.
+	* Version 1.6 has been released.
 
 2010.11.7
 	* background.html:

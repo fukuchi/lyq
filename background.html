@@ -88,7 +88,7 @@ function tweet(msg, uri, callback) {
 	    msg += " #" + hashtag;
     }
 	length = msg.length;
-	if (configs["tweeturi"]) {
+	if (configs["tweeturi"] === "on") {
 		if (uri && uri !== "" && length < (140 - 22)) {
 			msg += " " + shortenURI(uri);
 		}
