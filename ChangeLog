@@ -1,3 +1,8 @@
+2010.11.18
+	* lib/jquery.js:
+	  - Upgraded to the latest release (1.4.4).
+	* Version 1.5 has been released.
+
 2010.11.7
 	* background.html:
 	  - Latest Chrome does not support "<script ... />" style.
