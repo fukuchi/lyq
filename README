@@ -5,9 +5,9 @@ GENERAL INFORMATION
 Lyq (Leak Your Query, pronounced as leak) is a micro "unintentional" blogging
 tool that tweets (leaks) what you've searched automatically. It is a Google
 Chrome Extension, and after you've installed Lyq, it discloses your search
-query every your search query at various search services such as Google or Bing.
-Everyone can know what information you needed, where you wanted to go, or what
-you thought, that previously only your search services could know.
+query every your search at various services such as Google or Bing. Everyone
+can know what information you needed, where you wanted to go, or what you
+thought, that previously only your search services could know.
 
 Do NOT use this extension unless you know what you are doing with it. You will
 face serious security risks.
