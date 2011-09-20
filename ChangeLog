@@ -1,6 +1,10 @@
 2011.9.21
 	* lib/jquery.js:
 	  - Upgraded to the latest release (1.6.4).
+	* manifest.json, twitter_oauthpin.js:
+	  - Updated automatic PIN retriever for new application authorization
+	    page of Twitter.
+	* Bumped version to 1.7.
 
 2011.1.2
 	* README:
