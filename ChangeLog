@@ -1,9 +1,14 @@
 2011.9.21
 	* lib/jquery.js:
 	  - Upgraded to the latest release (1.6.4).
-	* manifest.json, twitter_oauthpin.js:
+	* manifest.json:
+	  - load jquery.js with twiter_oauthpin.js.
+	  - Added api.twitter.com as a permitted host.
+	* twitter_oauthpin.js:
 	  - Updated automatic PIN retriever for new application authorization
 	    page of Twitter.
+	* background.html:
+	  - bit.ly API access has been updated for its new API.
 	* Bumped version to 1.7.
 
 2011.1.2

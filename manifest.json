@@ -16,7 +16,7 @@
       "matches": [ "http://twitter.com/oauth/authorize", "https://twitter.com/oauth/authorize" ]
    }],
    "description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets what you've searched automatically.",
-   "permissions": [ "tabs", "http://twitter.com/", "https://twitter.com/", "http://api.bit.ly/" ],
+   "permissions": [ "tabs", "http://twitter.com/", "https://twitter.com/", "http://api.twitter.com/", "http://api.bit.ly/" ],
    "icons": {
    		"32": "img/lyq-icon-32x32.png",
    		"48": "img/lyq-icon-48x48.png"
