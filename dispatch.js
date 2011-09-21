@@ -1,9 +1,14 @@
 function dispatcher() {
-	var GoogleServices = {
+	var GoogleHosts = {
 		"maps": "Map",
 		"video": "Video",
 		"images": "Image",
 		"news": "News"
+	};
+	var GoogleServicetypes = {
+		"isch": "Image",
+		"nws": "News",
+		"vid": "Video"
 	};
 
 	BingServices = {
@@ -32,10 +37,20 @@ function dispatcher() {
 		if (loc.special && loc.special["service"] === "maps") {
 			return tweetGoogleMap(loc);
 		}
-		for (var key in GoogleServices) {
-			if (loc.hostname.indexOf(key) === 0) {
-				prefix = _gt(GoogleServices[key]) + ": ";
-				break;
+
+		var params = loc.search.split('&');
+		for (var i in params) {
+			values = params[i].split('=');
+			if (values[0] === "tbm") {
+				prefix = _gt(GoogleServicetypes[values[1]]) + ": ";
+			}
+		}
+		if (!prefix) {
+			for (var key in GoogleHosts) {
+				if (loc.hostname.indexOf(key) === 0) {
+					prefix = _gt(GoogleHosts[key]) + ": ";
+					break;
+				}
 			}
 		}
 		var m = loc.search.match(/(\?|&)q=([^?&]*)/);
