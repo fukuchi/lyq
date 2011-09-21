@@ -10,6 +10,10 @@
 	* background.html:
 	  - bit.ly API access has been updated for its new API.
 	* Bumped version to 1.7.
+	* dispatch.js:
+	  - Service recognition for Google has been improved.
+	  - Seach query sniffer has been updated for Twitter's new Web UI.
+	* Bumped version to 1.8.
 
 2011.1.2
 	* README:

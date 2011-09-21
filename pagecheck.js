@@ -71,11 +71,12 @@
 	}, false);
   }
   function twitter() {
-	  var search = document.getElementById("sidebar_search");
+	  var search = document.getElementById("search-form");
 	  search.addEventListener("submit", function() {
 		var query, href;
-		query = document.getElementById("sidebar_search_q").value;
-		href = "http://" + document.location.hostname + "/#search?q=" + encodeURI(query).replace(/#/g, "%23");
+		query = document.getElementById("search-query").value;
+		href = "http://" + document.location.hostname + "/search/" + encodeURI(query).replace(/#/g, "%23");
+		console.log(href);
 		onLyqOn(function() {
 			var req = {
 				"request": "tweet",
