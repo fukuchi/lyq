@@ -2,9 +2,9 @@ var TwitterOAuth = {
 	consumerSettings: {
 		"consumer_key": "CpIfE9K0wbYSlJKguUgEuw",
 		"consumer_secret": "DrTVxcsi5qGB3sSDTtyjagYu6p3LfVYpJGtcS2GsyZE",
-		"request_token_url": "http://twitter.com/oauth/request_token",
-		"access_token_url": "http://twitter.com/oauth/access_token",
-		"authorize_url": "https://twitter.com/oauth/authorize"
+		"request_token_url": "https://api.twitter.com/oauth/request_token",
+		"access_token_url": "https://api.twitter.com/oauth/access_token",
+		"authorize_url": "https://api.twitter.com/oauth/authorize"
 	},
 	oauth_token: null,
 	oauth_token_secret: null,
@@ -33,7 +33,7 @@ var TwitterOAuth = {
 
 	prepareSignedParams: function(url, params) {
 		var accessor = {
-			"consumerSecret": this.consumerSettings.consumer_secret,
+			"consumerSecret": this.consumerSettings.consumer_secret
 		};
 		var message = {
 			"method": "POST",
@@ -102,7 +102,7 @@ var TwitterOAuth = {
 		this.oauth_token = null;
 
 		this.makeRequest(this.consumerSettings.request_token_url,
-						 {},
+						 {"oauth_callback": "oob"},
 						 this.requestTokenCallback);
 	},
 
