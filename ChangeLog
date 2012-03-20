@@ -4,6 +4,8 @@
 	* lib/jquery.js:
 	  - Upgraded to the latest release (1.7.1).
 	* Bumped version to 1.9.
+	* manifest.json:
+	  - Added some https sites.
 
 2011.9.21
 	* lib/jquery.js:
