@@ -10,7 +10,7 @@
 	},
    "content_scripts": [ {
       "js": [ "pagecheck.js" ],
-      "matches": [ "http://*.google.com/*", "http://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "http://twitter.com/*", "https://twitter.com/*" ]
+      "matches": [ "http://*.google.com/", "https://*.google.com/*", "https://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "https://www.bing.com/", "http://twitter.com/*", "https://twitter.com/*" ]
    }, {
       "js": [ "lib/jquery.js", "twitter_oauthpin.js" ],
       "matches": [ "https://twitter.com/oauth/authorize", "https://api.twitter.com/oauth/authorize" ]
