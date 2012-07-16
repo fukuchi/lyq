@@ -3,105 +3,17 @@
 <title>Lyq Options</title>
 <link rel="stylesheet" type="text/css" href="css/options.css" />
 <script type="text/javascript" src="lib/jquery.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-function _gt(msg) {
-	return (chrome.i18n && chrome.i18n.getMessage(msg)) || msg;
-}
-
-var background = chrome.extension.getBackgroundPage();
-
-var Configs = {
-	eachInput: function(configs, callback) {
-		var _this = this;
-		$("input").each(function(){
-			var e = $(this)[0];
-			if(e.name !== "" && configs[e.name] !== undefined) {
-				callback.call(_this, e);
-			}
-		});
-	},
-	load: function(forceDefault) {
-		var configs = background.Configs.load(forceDefault);
-		this.eachInput(configs, function(e) {
-			switch(e.type) {
-				case "checkbox":
-					e.checked = (configs[e.name] === "on")?true:false;
-					break;
-				default:
-					e.value = configs[e.name];
-					break;
-			}
-		});
-		if (forceDefault) {
-			showMessage(_gt("Options_are_reset_to_default"));
-		}
-	},
-	save: function() {
-		var configs = background.Configs.load();
-		this.eachInput(configs, function(e) {
-			switch(e.type) {
-				case "checkbox":
-					configs[e.name] = e.checked?"on":"off";
-					break;
-				default:
-					configs[e.name] = e.value;
-					break;
-			}
-		});
-		background.Configs.save(configs);
-		showMessage(_gt("Options_saved"));
-	},
-	forceDefault: function() {
-		this.load(true);
-	}
-};
-
-function showMessage(msg) {
-		$("#message").stop().text(msg).show().css('opacity', '1.0').fadeOut(5000);
-}
-
-function isAuthenticated(callback) {
-	chrome.extension.sendRequest({"request": "isAuthenticated"},
-								 function(resp) { callback(resp); });
-}
-
-function signin() {
-	background.signin(function(result) { showAction(); });
-}
-
-function signout() {
-	background.signout();
-	showAction();
-}
-
-function showAction() {
-	isAuthenticated(function(resp) {
-		if(resp) {
-			$("#signin").hide();
-			$("#signout").show();
-		} else {
-			$("#signin").show();
-			$("#signout").hide();
-		}
-	});
-}
-
-$(function(){Configs.load()});
-showAction();
-
-//]]>
-</script>
+<script type="text/javascript" src="options.js"></script>
 </head>
 <body>
   <div id="header">
     <h1>Lyq Options:</h1>
   </div>
   <div id="signin" style="display:none">
-    <p>Lyq is not allowed to access your Twitter account. <a href="javascript:signin()">Sign in</a>.</p>
+    <p>Lyq is not allowed to access your Twitter account. <button id="signinButton">Sign in</button></p>
   </div>
   <div id="signout" style="display:none">
-    <p><a href="javascript:signout()">Sign out</a>.</p>
+    <p><button id="signoutButton">Sign out</button></p>
   </div>
   <div id="main">
     <form>
@@ -129,9 +41,9 @@ showAction();
         </div>
       </fieldset>
       <div>
-        <input type="button" value="Save" onclick="Configs.save();" />
-        <input type="button" value="Reset" onclick="Configs.load();" />
-        <input type="button" value="Reset to default" onclick="Configs.forceDefault();" />
+        <input id="saveButton" type="button" value="Save"/>
+        <input id="loadButton" type="button" value="Reset"/>
+        <input id="resetButton" type="reset" value="Reset to default"/>
         <span id="message"></span>
       </div>
     </form>

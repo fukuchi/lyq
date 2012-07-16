@@ -1,4 +1,4 @@
-Lyq: Leak Your Query - version 1.9
+Lyq: Leak Your Query - version 2.0
 
 GENERAL INFORMATION
 ===================
@@ -53,9 +53,7 @@ explicitly (click "sign out" at the option page).
 
 DEPENDENCY
 ----------
-Lyq is developed on the latest unstable version of the Google Chrome. Lyq 
-(probably) does not work on the stable version (3.x), and internationalization
-(I18N) does not work on earlier than 4.0.249.
+Lyq is developed for Google Chrome version 18 or later.
 
 
 TODO

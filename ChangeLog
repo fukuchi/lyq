@@ -1,3 +1,12 @@
+2012.7.16
+	* manifest.json, background.{html,js}, options.{html,js}:
+	  - Followed manifesto version 2.
+	* manifest.json:
+	  - Added "http://*.google.co.jp/*" to the target list of JS injection.
+	* README:
+	  - Dependency has been changed. Now Lyq requires vesrion 18 or later.
+	* Bumped version to 2.0.
+
 2012.3.21
 	* manifest.json, twitter_oauth.js:
 	  - Some URLs for OAuth have been changed to use HTTPS connection.
