@@ -86,7 +86,7 @@ function tweet(msg, uri, callback) {
 		}
 	}
 
-	var update_url = "http://api.twitter.com/1/statuses/update.json";
+	var update_url = "https://api.twitter.com/1/statuses/update.json";
 	var sparams = TwitterOAuth.prepareSignedParams(update_url, {"status": msg}, "POST");
 
 	$.ajax({
