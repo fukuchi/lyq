@@ -73,7 +73,8 @@ var TwitterOAuth = {
 			"error": function(request, status, error) {
 				var fmtError = "";
 				try {
-					fmtError = '"' + request.responseText+ '"(' + request.statusText + ")";
+					errorXML = $.parseXML(request.responseText)
+					fmtError = '"' + errorXML.getElementsByTagName("error")[0].textContent + '"(' + request.statusText + ")";
 				} catch(e) {
 					fmtError = '"' + error + '"(' + status + ")";
 				}
@@ -110,7 +111,7 @@ var TwitterOAuth = {
 		var params;
 		var result;
 		if(!data) {
-			console.log("Faile to get access_token: " + status);
+			console.log("Failed to get access_token: " + status);
 			alert("Failed to get access_token from twitter.com.\n\n" + status);
 			result = false;
 		} else {
