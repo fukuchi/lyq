@@ -106,18 +106,18 @@ function dispatcher() {
 
 	return {
 		tweet: function(loc) {
-		   var host = loc.hostname;
-		   if (host.match(/^.*\.google\.com$/) || host.match(/^.*\.google\.co\..*$/)) {
-			   tweetGoogle(loc);
-		   } else if (host === "www.bing.com") {
-			   tweetBing(loc);
-		   } else if (host === "www.youtube.com") {
-			   tweetYouTube(loc);
-		   } else if (host === "www.nicovideo.jp") {
-			   tweetNicovideo(loc);
-		   } else if (host === "twitter.com") {
-			   tweetTwitter(loc);
-		   }
-	   }
+			var host = loc.hostname;
+			if (host.match(/^.*\.google\.com$/) || host.match(/^.*\.google\.co\..*$/)) {
+				tweetGoogle(loc);
+			} else if (host === "www.bing.com") {
+				tweetBing(loc);
+			} else if (host === "www.youtube.com") {
+				tweetYouTube(loc);
+			} else if (host === "www.nicovideo.jp") {
+				tweetNicovideo(loc);
+			} else if (host === "twitter.com") {
+				tweetTwitter(loc);
+			}
+		}
 	};
 }

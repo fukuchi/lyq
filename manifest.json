@@ -1,28 +1,28 @@
 {
-   "manifest_version": 2,
-   "name": "Lyq",
-   "version": "2.0",
-   "default_locale": "en",
-   "background": {
-	   "page": "background.html"
-   },
-   "options_page": "options.html",
-   "browser_action": {
-   	"default_icon": "img/lyq-icon-close.png",
-	"default_title": "Lyq"
+	"manifest_version": 2,
+	"name": "Lyq",
+	"version": "2.0",
+	"default_locale": "en",
+	"background": {
+		"page": "background.html"
 	},
-   "content_scripts": [ {
-      "js": [ "pagecheck.js" ],
-      "matches": [ "http://*.google.com/", "https://*.google.com/*", "http://*.google.co.jp/*", "https://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "https://www.bing.com/", "http://twitter.com/*", "https://twitter.com/*" ]
-   }, {
-      "js": [ "lib/jquery.js", "twitter_oauthpin.js" ],
-      "matches": [ "https://twitter.com/oauth/authorize", "https://api.twitter.com/oauth/authorize" ]
-   }],
-   "description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets what you've searched automatically.",
-   "permissions": [ "background", "tabs", "http://twitter.com/", "https://twitter.com/", "https://api.twitter.com/", "http://api.bit.ly/" ],
-   "icons": {
-   		"32": "img/lyq-icon-32x32.png",
-   		"48": "img/lyq-icon-48x48.png"
+	"options_page": "options.html",
+	"browser_action": {
+		"default_icon": "img/lyq-icon-close.png",
+		"default_title": "Lyq"
+	},
+	"content_scripts": [{
+		"js": [ "pagecheck.js" ],
+		"matches": [ "http://*.google.com/", "https://*.google.com/*", "http://*.google.co.jp/*", "https://*.google.co.jp/*", "http://www.youtube.com/*", "http://www.nicovideo.jp/*", "http://www.bing.com/*", "https://www.bing.com/", "http://twitter.com/*", "https://twitter.com/*" ]
+	}, {
+		"js": [ "lib/jquery.js", "twitter_oauthpin.js" ],
+		"matches": [ "https://twitter.com/oauth/authorize", "https://api.twitter.com/oauth/authorize" ]
+	}],
+	"description": "Lyq (Leak Your Query, pronounced as leak) is a micro \"unintentional\" blogging tool that tweets what you've searched automatically.",
+	"permissions": [ "background", "tabs", "http://twitter.com/", "https://twitter.com/", "https://api.twitter.com/", "http://api.bit.ly/" ],
+	"icons": {
+		"32": "img/lyq-icon-32x32.png",
+		"48": "img/lyq-icon-48x48.png"
 	},
 	"minimum_chrome_version": "18.0.0"
 }

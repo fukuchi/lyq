@@ -19,14 +19,14 @@ var Configs = {
 		if (forceDefault) {
 			return configs;
 		}
-    	try {
-    		var stored = localStorage["configs"];
-    		if (stored !== undefined) {
-    			$.extend(true, configs, JSON.parse(stored));
-    		}
-    	} catch (e) {
-		    alert("Your configuration file is broken.\n\nPlease open the option page for reconfiguration.");
-            delete localStorage["configs"];
+		try {
+			var stored = localStorage["configs"];
+			if (stored !== undefined) {
+				$.extend(true, configs, JSON.parse(stored));
+			}
+		} catch (e) {
+			alert("Your configuration file is broken.\n\nPlease open the option page for reconfiguration.");
+			delete localStorage["configs"];
 		}
 		return configs;
 	},
@@ -41,7 +41,7 @@ var Configs = {
 };
 
 function shortenURI(uri) {
-// currently only Bit.ly is supported.
+	// currently only Bit.ly is supported.
 	var configs = Configs.load();
 	var xhr = new XMLHttpRequest();
 	var param = {"login": configs["bitly_login"],
@@ -75,10 +75,10 @@ function tweet(msg, uri, callback) {
 	var configs = Configs.load();
 	var length;
 
-    var hashtag = configs["hashtag"];
-    if(hashtag) {
-	    msg += " #" + hashtag;
-    }
+	var hashtag = configs["hashtag"];
+	if(hashtag) {
+		msg += " #" + hashtag;
+	}
 	length = msg.length;
 	if (configs["tweeturi"] === "on") {
 		if (uri && uri !== "" && length < (140 - 22)) {
