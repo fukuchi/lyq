@@ -85,4 +85,4 @@ Lyq is released under the BSD-style license. Check the LICENSE file.
 AUTHOR
 ======
 Kentaro Fukuchi <kentaro@fukuchi.org>
-Visit http://fukuchi.org/works/lyq/index.en.html for further information.
+Visit https://fukuchi.org/works/lyq/ for further information.
