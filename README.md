@@ -33,7 +33,7 @@ Go Options page to enable them. To open the options page, right click on
 the Lyq's icon or select Extensions from Tools menu.
 
 WARNINGS
---------
+========
 Lyq may leak any hidden URLs. Some web services achieve privacy protection by
 hiding URLs and it is expected that you do not disclose them (e.g. Google
 Calendar and Google Maps).
@@ -41,7 +41,7 @@ Calendar and Google Maps).
 
 INSTALL
 =======
-Visit:
+To install a pre-packaged extension, visit:
 https://chrome.google.com/extensions/detail/cgiflojkgbimjdbfgfammdbiafknddem
 
 After the first installing of Lyq, it is required to sign in Twitter to
@@ -51,12 +51,12 @@ and sign in to a Twitter account that you want to post your queries.
 When it is authenticated, no more signing is needed until you sign out
 explicitly (click "sign out" at the option page).
 
-DEPENDENCY
+Dependency
 ----------
 Lyq is developed for Google Chrome version 18 or later.
 
-GIT
----
+Git repository
+--------------
 https://github.com/fukuchi/lyq
 
 
@@ -66,8 +66,8 @@ TODO
 * Other URI shortener services.
 
 
-ACKNOWLEDGEMENT
-===============
+ACKNOWLEDGEMENTS
+================
 Lyq uses the following softwares:
 - jQuery
 - OAuth for Javascript (by Netflix, Inc.)
